@@ -12,6 +12,8 @@ import android.view.MenuItem
 import com.fict.chesspuzzle.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
+  // test comment
+  // test comment 1
 
   private lateinit var appBarConfiguration: AppBarConfiguration
   private lateinit var binding: ActivityMainBinding
