@@ -1,4 +1,4 @@
-package com.fict.chesspuzzle.ui.theme
+package com.fict.chesspuzzle.ui.theme.ui.ui.theme
 
 import androidx.compose.material.Typography
 import androidx.compose.ui.text.TextStyle

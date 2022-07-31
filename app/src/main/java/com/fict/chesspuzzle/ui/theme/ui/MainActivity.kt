@@ -1,4 +1,4 @@
-package com.fict.chesspuzzle
+package com.fict.chesspuzzle.ui.theme.ui
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -10,7 +10,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.fict.chesspuzzle.ui.theme.ChessPuzzleTheme
+import com.fict.chesspuzzle.ui.theme.ui.ui.theme.ChessPuzzleTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

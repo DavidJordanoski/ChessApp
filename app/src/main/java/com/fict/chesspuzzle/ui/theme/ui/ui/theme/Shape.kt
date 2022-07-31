@@ -1,4 +1,4 @@
-package com.fict.chesspuzzle.ui.theme
+package com.fict.chesspuzzle.ui.theme.ui.ui.theme
 
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Shapes
