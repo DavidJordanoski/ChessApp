@@ -1,4 +1,4 @@
-package com.fict.chesspuzzle.ui.theme.ui
+package com.fict.chesspuzzle
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -34,6 +34,7 @@ class MainActivity : ComponentActivity() {
             }
         }
     }
+
 }
 
 @Preview(showBackground = true)
