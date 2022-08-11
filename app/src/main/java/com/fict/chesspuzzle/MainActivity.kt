@@ -23,15 +23,16 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
 
         setContent {
-            ChessPuzzleTheme {
-                // A surface container using the 'background' color from the theme
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colors.background
-                ) {
-
-                }
-            }
+//            ChessPuzzleTheme {
+//                // A surface container using the 'background' color from the theme
+//                Surface(
+//                    modifier = Modifier.fillMaxSize(),
+//                    color = MaterialTheme.colors.background
+//                ) {
+//
+//                }
+//            }
+            DefaultPreview()
         }
     }
 
@@ -52,7 +53,7 @@ fun DefaultPreview() {
         Column(
             Modifier
                 .paddingFromBaseline(68.dp, 0.dp),
-            verticalArrangement = Arrangement.Bottom
+            verticalArrangement = Arrangement.Center
         ) {
 
             for (y in 0 until 8) {
