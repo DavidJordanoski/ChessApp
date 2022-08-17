@@ -23,71 +23,9 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
 
         setContent {
-//            ChessPuzzleTheme {
-//                // A surface container using the 'background' color from the theme
-//                Surface(
-//                    modifier = Modifier.fillMaxSize(),
-//                    color = MaterialTheme.colors.background
-//                ) {
 //
-//                }
-//            }
-            DefaultPreview()
         }
     }
 
 }
 
-@Preview(showBackground = true)
-@Composable
-fun DefaultPreview() {
-    ChessPuzzleTheme {
-        Scaffold(topBar = {
-            TopAppBar {
-                Text(text = "Chess Puzzle")
-            }
-
-        }) {
-
-        }
-        Column(
-            Modifier
-                .paddingFromBaseline(68.dp, 0.dp),
-            verticalArrangement = Arrangement.Center
-        ) {
-
-            for (y in 0 until 8) {
-                Row {
-                    for (x in 0 until 8) {
-                        val white = y % 2 == x % 2
-                        val color = if (white) BoardColors.lightSquare else BoardColors.darkSquare
-                        Box(
-                            modifier = Modifier
-                                .weight(1f)
-                                .background(color)
-                                .aspectRatio(1.0f)
-                        ) {
-                            if (y == 7) {
-                                Text(
-                                    text = "${'A' + x}",
-                                    modifier = Modifier.align(Alignment.BottomEnd),
-                                    style = MaterialTheme.typography.caption,
-                                    color = Color.Black.copy(0.5f)
-                                )
-                            }
-                            if (x == 0) {
-                                Text(
-                                    text = "${8 - y}",
-                                    modifier = Modifier.align(Alignment.TopStart),
-                                    style = MaterialTheme.typography.caption,
-                                    color = Color.Black.copy(0.5f)
-                                )
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
-    }
-}
