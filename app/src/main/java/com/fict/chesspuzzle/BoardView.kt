@@ -17,7 +17,7 @@ class BoardView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
 
         for (i in 0..7) {
             for (j in 0..7) {
-                paint.color = if ((i + j) % 2 == 0) Color.DKGRAY else Color.LTGRAY
+                paint.color = if ((i + j) % 2 == 1) Color.DKGRAY else Color.LTGRAY
                 canvas?.drawRect(originX + i * cellSide, originY + j * cellSide, originX + (i+1) * cellSide, originY + (j+1) * cellSide, paint)
             }
         }
