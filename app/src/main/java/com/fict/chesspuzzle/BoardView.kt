@@ -28,6 +28,8 @@ class BoardView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
 
     private final val bitmaps = mutableMapOf<Int, Bitmap>()
 
+    var chessDelegate: ChessDelegate? = null
+
     init {
         loadBitmaps()
     }
@@ -39,12 +41,9 @@ class BoardView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
     }
 
     private fun drawPieces(canvas: Canvas?){
-        val chessModel = ChessModel()
-        chessModel.reset()
-
         for (row in 0..7) {
             for (col in 0..7) {
-                val piece = chessModel.pieceAt(col, row)
+                val piece = chessDelegate?.pieceAt(col, row)
                 if (piece != null) {
                     drawPieceAt(canvas, col, row, piece.resourceID)
                 }
