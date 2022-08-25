@@ -4,12 +4,15 @@ import android.view.View
 import android.content.Context
 import android.graphics.*
 import android.util.AttributeSet
+import android.util.Log
+import kotlin.math.min
 
 class BoardView(context: Context?, attrs: AttributeSet?) : View(context, attrs) {
 
-    private final val originX = 40f
-    private final val originY = 250f
-    private final val cellSide = 170f
+    private final var originX = 40f
+    private final var originY = 250f
+    private final var cellSide = 170f
+    private final val scaleFactor = .9f
     private final val paint = Paint ()
     private final val imgResourceIDs = setOf(
         R.drawable.black_bishop,
@@ -35,6 +38,15 @@ class BoardView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
     }
 
     override fun onDraw(canvas: Canvas?) {
+
+        Log.d(TAG, "${canvas?.width}, ${canvas?.height}")
+        canvas?.let {
+            val chessBoardSide = min(it.width, it.height) * scaleFactor
+            cellSide = chessBoardSide / 8f
+            originX = (it.width - chessBoardSide) / 2f
+            originY = (it.height - chessBoardSide) / 2f
+        }
+
         drawChessBoard(canvas)
         drawPieces(canvas)
 
