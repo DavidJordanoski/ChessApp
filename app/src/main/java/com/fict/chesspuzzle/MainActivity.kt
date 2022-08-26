@@ -21,5 +21,11 @@ class MainActivity : AppCompatActivity(), ChessDelegate {
     override fun pieceAt(col: Int, row: Int): ChessPiece? {
         return chessModel.pieceAt(col, row)
     }
+
+    override fun moveFigure(fromCol: Int, formRow: Int, toCol: Int, toRow: Int) {
+        chessModel.moveFigure(fromCol, formRow, toCol, toRow)
+        val chessView = findViewById<BoardView>(R.id.board_view)
+        chessView.invalidate()
+    }
 }
 

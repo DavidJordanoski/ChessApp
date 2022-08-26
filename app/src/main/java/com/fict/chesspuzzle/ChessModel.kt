@@ -8,10 +8,6 @@ class ChessModel {
     init {
         reset()
 
-        //TODO
-        moveFigure(0, 0, 1, 7)
-        moveFigure(1, 7, 1, 4)
-
         Log.d(TAG, toString())
         Log.d(TAG, " ${piecesBox.size}")
     }
