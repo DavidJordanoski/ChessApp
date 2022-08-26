@@ -1,10 +1,31 @@
 package com.fict.chesspuzzle
 
+import android.util.Log
+
 class ChessModel {
     var piecesBox = mutableSetOf<ChessPiece>()
 
     init {
         reset()
+
+        //TODO
+        moveFigure(0, 0, 1, 7)
+        moveFigure(1, 7, 1, 4)
+
+        Log.d(TAG, toString())
+        Log.d(TAG, " ${piecesBox.size}")
+    }
+
+    fun moveFigure(fromCol: Int, formRow: Int, toCol: Int, toRow: Int) {
+        val movingFigure = pieceAt(fromCol, formRow) ?: return
+
+        pieceAt(toCol, toRow)?.let {
+            if (it.player == movingFigure.player) {
+                return
+            }
+            piecesBox.remove(it) }
+        movingFigure.col = toCol
+        movingFigure.row = toRow
     }
 
     fun reset() {
