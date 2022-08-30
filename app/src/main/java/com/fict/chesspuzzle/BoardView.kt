@@ -1,11 +1,13 @@
 package com.fict.chesspuzzle
 
-import android.view.View
 import android.content.Context
 import android.graphics.*
 import android.util.AttributeSet
 import android.util.Log
 import android.view.MotionEvent
+import android.view.View
+import androidx.core.graphics.minus
+import androidx.core.graphics.plus
 import kotlin.math.min
 
 class BoardView(context: Context?, attrs: AttributeSet?) : View(context, attrs) {
@@ -49,7 +51,7 @@ class BoardView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
             originX = (it.width - chessBoardSide) / 2f
             originY = (it.height - chessBoardSide) / 2f
         }
-
+        drawChessRect(canvas)
         drawChessBoard(canvas)
         drawPieces(canvas)
 
@@ -99,10 +101,24 @@ class BoardView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
     private  fun drawChessBoard (canvas: Canvas?) {
         for (row in 0..7) {
             for (col in 0..7) {
-                paint.color = if ((row + col) % 2 == 1) Color.DKGRAY else Color.LTGRAY
+                paint.color = if ((row + col) % 2 == 1) resources.getColor(R.color.green) else resources.getColor(R.color.creamy)
                 canvas?.drawRect(originX + row * cellSide, originY + col * cellSide, originX + (row+1) * cellSide, originY + (col+1) * cellSide, paint)
             }
         }
 
+    }
+    private  fun drawChessRect (canvas: Canvas?) {
+        val r = Rect(10, 400, 1070, 1490)
+        paint.setStyle(Paint.Style.FILL);
+        paint.setColor(Color.BLACK);
+        canvas?.drawRect(r, paint);
+
+        paint.setStyle(Paint.Style.FILL);
+        paint.setColor(resources.getColor(R.color.green2));
+        canvas?.drawRect(15f,405f,1065f,1485f,paint);
+
+        paint.setStyle(Paint.Style.FILL);
+        paint.setColor(Color.BLACK);
+        canvas?.drawRect(50f,460f,1030f,1440f, paint);
     }
 }
