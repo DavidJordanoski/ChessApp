@@ -12,9 +12,7 @@ class MainActivity : AppCompatActivity(), ChessDelegate {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        Log.d(TAG, "$chessModel")
-        val boardView = findViewById<BoardView>(R.id.board_view)
-        boardView.chessDelegate = this
+        findViewById<BoardView>(R.id.board_view).chessDelegate = this
 
     }
 
@@ -24,8 +22,7 @@ class MainActivity : AppCompatActivity(), ChessDelegate {
 
     override fun moveFigure(fromCol: Int, formRow: Int, toCol: Int, toRow: Int) {
         chessModel.moveFigure(fromCol, formRow, toCol, toRow)
-        val chessView = findViewById<BoardView>(R.id.board_view)
-        chessView.invalidate()
+        findViewById<BoardView>(R.id.board_view).invalidate()
     }
 }
 

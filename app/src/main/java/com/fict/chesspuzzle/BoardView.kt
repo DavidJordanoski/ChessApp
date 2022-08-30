@@ -12,13 +12,15 @@ import kotlin.math.min
 
 class BoardView(context: Context?, attrs: AttributeSet?) : View(context, attrs) {
 
-    private final var originX = 40f
-    private final var originY = 250f
-    private final var cellSide = 170f
-    private final val scaleFactor = .9f
-    private final val paint = Paint ()
+    private var originX = 40f
+    private var originY = 250f
+    private var cellSide = 170f
+    private val scaleFactor = .9f
+    private val paint = Paint ()
     private var fromCol: Int = -1
     private var fromRow: Int = -1
+    private var movingFigureX = -1f
+    private var movingFigureY = -1f
     private final val imgResourceIDs = setOf(
         R.drawable.black_bishop,
         R.drawable.black_king,
@@ -65,7 +67,9 @@ class BoardView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
                 fromRow = 7 - ((event.y - originY) / cellSide).toInt()
             }
             MotionEvent.ACTION_MOVE -> {
-                //               Log.d(TAG, "move")
+                movingFigureX = event.x
+                movingFigureY = event.y
+                invalidate()
             }
             MotionEvent.ACTION_UP -> {
                 val col = ((event.x - originX) / cellSide).toInt()
@@ -80,11 +84,18 @@ class BoardView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
     private fun drawPieces(canvas: Canvas?){
         for (row in 0..7) {
             for (col in 0..7) {
-                val piece = chessDelegate?.pieceAt(col, row)
-                if (piece != null) {
-                    drawPieceAt(canvas, col, row, piece.resourceID)
+                if (row != fromRow || col != fromCol) {
+                    chessDelegate?.pieceAt(col, row)
+                        ?.let { drawPieceAt(canvas, col, row, it.resourceID) }
                 }
             }
+
+        }
+
+        chessDelegate?.pieceAt(fromCol, fromRow)?.let {
+            val bitmap = bitmaps[it.resourceID]!!
+            canvas?.drawBitmap(bitmap, null, RectF (movingFigureX - cellSide/2, movingFigureY - cellSide/2,
+                movingFigureX + cellSide/2, movingFigureY + cellSide/2), paint)
         }
     }
 
