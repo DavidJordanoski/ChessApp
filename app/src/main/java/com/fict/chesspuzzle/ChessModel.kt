@@ -19,9 +19,12 @@ class ChessModel {
             if (it.player == movingFigure.player) {
                 return
             }
-            piecesBox.remove(it) }
-        movingFigure.col = toCol
-        movingFigure.row = toRow
+            piecesBox.remove(it)
+        }
+
+        piecesBox.remove(movingFigure)
+        piecesBox.add(ChessPiece(toCol, toRow, movingFigure.player, movingFigure.figure, movingFigure.resourceID))
+
     }
 
     fun reset() {
