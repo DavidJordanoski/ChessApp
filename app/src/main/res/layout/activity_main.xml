@@ -4,5 +4,4 @@
     android:id="@+id/board_view"
     android:layout_height="match_parent"
     android:layout_width="match_parent">
-
 </com.fict.chesspuzzle.BoardView>

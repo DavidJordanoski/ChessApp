@@ -51,7 +51,7 @@ class BoardView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
             originX = (it.width - chessBoardSide) / 2f
             originY = (it.height - chessBoardSide) / 2f
         }
-        drawChessRect(canvas)
+
         drawChessBoard(canvas)
         drawPieces(canvas)
 
@@ -99,6 +99,19 @@ class BoardView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
         }
     }
     private  fun drawChessBoard (canvas: Canvas?) {
+
+        for (row in 0..7) {
+            for (col in 0..7) {
+                paint.setStyle(Paint.Style.FILL);
+                paint.setColor(resources.getColor(R.color.green2));
+                canvas?.drawRect(
+                    (originX - 0.35 * cellSide).toFloat(),
+                    (originY - 0.35 * cellSide).toFloat(),
+                    (originX + 8.35 * cellSide).toFloat(),
+                    (originY + 8.35 * cellSide).toFloat(), paint);
+            }
+        }
+
         for (row in 0..7) {
             for (col in 0..7) {
                 paint.color = if ((row + col) % 2 == 1) resources.getColor(R.color.green) else resources.getColor(R.color.creamy)
@@ -106,19 +119,30 @@ class BoardView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
             }
         }
 
-    }
-    private  fun drawChessRect (canvas: Canvas?) {
-        val r = Rect(10, 400, 1070, 1490)
-        paint.setStyle(Paint.Style.FILL);
-        paint.setColor(Color.BLACK);
-        canvas?.drawRect(r, paint);
+        for (row in 0..7) {
+            for (col in 0..7) {
+                paint.setStyle(Paint.Style.STROKE);
+                paint.setColor(Color.BLACK);
+                canvas?.drawRect(
+                    (originX - 0 * cellSide).toFloat(),
+                    (originY - 0 * cellSide).toFloat(),
+                    (originX + 8 * cellSide).toFloat(),
+                    (originY + 8 * cellSide).toFloat(), paint);
+            }
+        }
 
-        paint.setStyle(Paint.Style.FILL);
-        paint.setColor(resources.getColor(R.color.green2));
-        canvas?.drawRect(15f,405f,1065f,1485f,paint);
 
-        paint.setStyle(Paint.Style.FILL);
-        paint.setColor(Color.BLACK);
-        canvas?.drawRect(50f,460f,1030f,1440f, paint);
+        for (row in 0..7) {
+            for (col in 0..7) {
+                paint.setStyle(Paint.Style.STROKE);
+                paint.setColor(Color.BLACK);
+                canvas?.drawRect(
+                    (originX - 0.35 * cellSide).toFloat(),
+                    (originY - 0.35 * cellSide).toFloat(),
+                    (originX + 8.35 * cellSide).toFloat(),
+                    (originY + 8.35 * cellSide).toFloat(), paint
+                )
+            }
+        }
     }
 }
