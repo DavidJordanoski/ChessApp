@@ -13,6 +13,7 @@ class ChessModel {
     }
 
     fun moveFigure(fromCol: Int, formRow: Int, toCol: Int, toRow: Int) {
+        if (fromCol == toCol && formRow == toRow) return
         val movingFigure = pieceAt(fromCol, formRow) ?: return
 
         pieceAt(toCol, toRow)?.let {

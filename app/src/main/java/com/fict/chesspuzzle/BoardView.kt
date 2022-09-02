@@ -21,6 +21,8 @@ class BoardView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
     private var fromRow: Int = -1
     private var movingFigureX = -1f
     private var movingFigureY = -1f
+    private var movingFigureBitmap: Bitmap? = null
+    private var movingFigure: ChessPiece? =null
     private final val imgResourceIDs = setOf(
         R.drawable.black_bishop,
         R.drawable.black_king,
@@ -65,6 +67,11 @@ class BoardView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
             MotionEvent.ACTION_DOWN -> {
                 fromCol = ((event.x - originX) / cellSide).toInt()
                 fromRow = 7 - ((event.y - originY) / cellSide).toInt()
+
+                chessDelegate?.pieceAt(fromCol, fromRow)?.let {
+                    movingFigure = it
+                    movingFigureBitmap = bitmaps [movingFigure!!.resourceID]
+                }
             }
             MotionEvent.ACTION_MOVE -> {
                 movingFigureX = event.x
@@ -76,6 +83,8 @@ class BoardView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
                 val row = 7 - ((event.y - originY) / cellSide).toInt()
                 Log.d(TAG, "from ($fromCol, $fromRow) to ($col, $row)")
                 chessDelegate?.moveFigure(fromCol, fromRow, col, row)
+                movingFigure = null
+                movingFigureBitmap = null
             }
         }
         return true
@@ -84,19 +93,19 @@ class BoardView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
     private fun drawPieces(canvas: Canvas?){
         for (row in 0..7) {
             for (col in 0..7) {
-                if (row != fromRow || col != fromCol) {
-                    chessDelegate?.pieceAt(col, row)
-                        ?.let { drawPieceAt(canvas, col, row, it.resourceID) }
+                chessDelegate?.pieceAt(col, row)?.let {
+                    if (it != movingFigure) {
+                        drawPieceAt(canvas, col, row, it.resourceID)
+                    }
                 }
             }
-
         }
 
-        chessDelegate?.pieceAt(fromCol, fromRow)?.let {
-            val bitmap = bitmaps[it.resourceID]!!
-            canvas?.drawBitmap(bitmap, null, RectF (movingFigureX - cellSide/2, movingFigureY - cellSide/2,
+        movingFigureBitmap?.let {
+            canvas?.drawBitmap(it, null, RectF (movingFigureX - cellSide/2, movingFigureY - cellSide/2,
                 movingFigureX + cellSide/2, movingFigureY + cellSide/2), paint)
         }
+
     }
 
     private fun drawPieceAt(canvas: Canvas?, col: Int, row: Int, resID: Int) {
