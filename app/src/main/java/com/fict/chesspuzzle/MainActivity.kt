@@ -1,13 +1,12 @@
 package com.fict.chesspuzzle
 
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 
 const val TAG = "MainActivity"
 class MainActivity : AppCompatActivity(), ChessDelegate {
 
-    var chessModel = ChessModel()
+    private var chessModel = ChessModel
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -16,12 +15,10 @@ class MainActivity : AppCompatActivity(), ChessDelegate {
 
     }
 
-    override fun pieceAt(col: Int, row: Int): ChessPiece? {
-        return chessModel.pieceAt(col, row)
-    }
+    override fun pieceAt(square: Square): ChessPiece? = ChessModel.pieceAt(square)
 
-    override fun moveFigure(fromCol: Int, formRow: Int, toCol: Int, toRow: Int) {
-        chessModel.moveFigure(fromCol, formRow, toCol, toRow)
+    override fun moveFigure(from: Square, to: Square) {
+        chessModel.moveFigure(from,to)
         findViewById<BoardView>(R.id.board_view).invalidate()
     }
 }

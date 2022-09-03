@@ -68,7 +68,7 @@ class BoardView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
                 fromCol = ((event.x - originX) / cellSide).toInt()
                 fromRow = 7 - ((event.y - originY) / cellSide).toInt()
 
-                chessDelegate?.pieceAt(fromCol, fromRow)?.let {
+                chessDelegate?.pieceAt(Square(fromCol,fromRow))?.let {
                     movingFigure = it
                     movingFigureBitmap = bitmaps [movingFigure!!.resourceID]
                 }
@@ -82,7 +82,7 @@ class BoardView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
                 val col = ((event.x - originX) / cellSide).toInt()
                 val row = 7 - ((event.y - originY) / cellSide).toInt()
                 Log.d(TAG, "from ($fromCol, $fromRow) to ($col, $row)")
-                chessDelegate?.moveFigure(fromCol, fromRow, col, row)
+                chessDelegate?.moveFigure(Square(fromCol,fromRow), Square(col, row))
                 movingFigure = null
                 movingFigureBitmap = null
             }
@@ -93,7 +93,7 @@ class BoardView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
     private fun drawPieces(canvas: Canvas?){
         for (row in 0..7) {
             for (col in 0..7) {
-                chessDelegate?.pieceAt(col, row)?.let {
+                chessDelegate?.pieceAt(Square(col, row))?.let {
                     if (it != movingFigure) {
                         drawPieceAt(canvas, col, row, it.resourceID)
                     }
