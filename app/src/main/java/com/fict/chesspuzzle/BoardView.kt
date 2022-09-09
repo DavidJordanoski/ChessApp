@@ -68,7 +68,7 @@ class BoardView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
                 fromCol = ((event.x - originX) / cellSide).toInt()
                 fromRow = 7 - ((event.y - originY) / cellSide).toInt()
 
-                chessDelegate?.pieceAt(Square(fromCol,fromRow))?.let {
+                chessDelegate?.pieceAt(Position(fromCol,fromRow))?.let {
                     movingFigure = it
                     movingFigureBitmap = bitmaps [movingFigure!!.resourceID]
                 }
@@ -82,7 +82,7 @@ class BoardView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
                 val col = ((event.x - originX) / cellSide).toInt()
                 val row = 7 - ((event.y - originY) / cellSide).toInt()
                 Log.d(TAG, "from ($fromCol, $fromRow) to ($col, $row)")
-                chessDelegate?.moveFigure(Square(fromCol,fromRow), Square(col, row))
+                chessDelegate?.moveFigure(Position(fromCol,fromRow), Position(col, row))
                 movingFigure = null
                 movingFigureBitmap = null
             }
@@ -93,7 +93,7 @@ class BoardView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
     private fun drawPieces(canvas: Canvas?){
         for (row in 0..7) {
             for (col in 0..7) {
-                chessDelegate?.pieceAt(Square(col, row))?.let {
+                chessDelegate?.pieceAt(Position(col, row))?.let {
                     if (it != movingFigure) {
                         drawPieceAt(canvas, col, row, it.resourceID)
                     }
@@ -110,7 +110,8 @@ class BoardView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
 
     private fun drawPieceAt(canvas: Canvas?, col: Int, row: Int, resID: Int) {
         val bitmap = bitmaps[resID]!!
-        canvas?.drawBitmap(bitmap, null, RectF (originX + col * cellSide, originY + (7-row) * cellSide, originX +(col+1) * cellSide, originY + ((7-row)+1) * cellSide), paint)
+        canvas?.drawBitmap(bitmap, null, RectF (originX + col * cellSide, originY + (7-row) * cellSide,
+            originX +(col+1) * cellSide, originY + ((7-row)+1) * cellSide), paint)
     }
 
     private fun loadBitmaps() {
@@ -135,7 +136,8 @@ class BoardView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
         for (row in 0..7) {
             for (col in 0..7) {
                 paint.color = if ((row + col) % 2 == 1) resources.getColor(R.color.green) else resources.getColor(R.color.creamy)
-                canvas?.drawRect(originX + row * cellSide, originY + col * cellSide, originX + (row+1) * cellSide, originY + (col+1) * cellSide, paint)
+                canvas?.drawRect(originX + row * cellSide, originY + col * cellSide,
+                    originX + (row+1) * cellSide, originY + (col+1) * cellSide, paint)
             }
         }
 

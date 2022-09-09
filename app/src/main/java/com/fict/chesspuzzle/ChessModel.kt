@@ -7,13 +7,13 @@ object ChessModel {
     var piecesBox = mutableSetOf<ChessPiece>()
 
     init {
-        reset()
+
 
         Log.d(TAG, toString())
         Log.d(TAG, " ${piecesBox.size}")
     }
 
-    fun canMove(from: Square, to: Square): Boolean {
+    fun canMove(from: Position, to: Position): Boolean {
         if (from.col == to.col && from.row == to.row) {
             return false
         }
@@ -28,7 +28,7 @@ object ChessModel {
         }
     }
 
-    fun moveFigure(from: Square, to: Square) {
+    fun moveFigure(from: Position, to: Position) {
         if (canMove(from, to)) {
             moveFigure(from.col, from.row, to.col, to.row)
         }
@@ -59,7 +59,7 @@ object ChessModel {
 
     }
 
-    fun pieceAt(square: Square): ChessPiece? {
+    fun pieceAt(square: Position): ChessPiece? {
         return pieceAt(square.col, square.row)
     }
 
@@ -73,19 +73,19 @@ object ChessModel {
     }
 
 
-    private fun canKnightMove(from: Square, to: Square): Boolean {
+    private fun canKnightMove(from: Position, to: Position): Boolean {
         return abs(from.col - to.col) == 2 && abs(from.row - to.row) == 1 ||
                 abs(from.col - to.col) == 1 && abs(from.row - to.row) == 2
     }
 
-    private fun canBishopMove(from: Square, to: Square): Boolean {
+    private fun canBishopMove(from: Position, to: Position): Boolean {
         if (abs(from.col - to.col) == abs(from.row - to.row)) {
             return isClearDiagonally(from, to)
         }
         return false
     }
 
-    private fun canRookMove(from: Square, to: Square): Boolean {
+    private fun canRookMove(from: Position, to: Position): Boolean {
         if (from.col == to.col && isClearVerticallyBetween(from, to) ||
             from.row == to.row && isClearHorizontallyBetween(from, to)
         ) {
@@ -94,11 +94,11 @@ object ChessModel {
         return false
     }
 
-    private fun canQueenMove(from: Square, to: Square): Boolean {
+    private fun canQueenMove(from: Position, to: Position): Boolean {
         return canRookMove(from, to) || canBishopMove(from, to)
     }
 
-    private fun canKingMove(from: Square, to: Square): Boolean {
+    private fun canKingMove(from: Position, to: Position): Boolean {
         if (canQueenMove(from, to)) {
             val deltaCol = abs(from.col - to.col)
             val deltaRow = abs(from.row - to.row)
@@ -107,7 +107,7 @@ object ChessModel {
         return false
     }
 
-    private fun canPawnMove(from: Square, to: Square): Boolean {
+    private fun canPawnMove(from: Position, to: Position): Boolean {
         if (from.col == to.col) {
             if (from.row == 1) {
                 return to.row == 2 || to.row == 3
@@ -115,36 +115,46 @@ object ChessModel {
                 return to.row == 5 || to.row == 4
             }
         }
+        if (from.col == to.col && isClearVerticallyBetween(from, to)) {
+            val deltaCol = abs(from.col - to.col)
+            val deltaRow = abs(from.row - to.row)
+            return deltaCol == 1 && deltaRow == 1 || deltaCol + deltaRow == 1
+        }
+        if (abs(from.col - to.col) == abs(from.row - to.row) && isClearDiagonally(from, to)) {
+            val deltaCol = abs(from.col - to.col)
+            val deltaRow = abs(from.row - to.row)
+            return deltaCol == 1 && deltaRow == 1 && isClearDiagonally(from, to)
+        }
         return false
     }
 
-    private fun isClearVerticallyBetween(from: Square, to: Square): Boolean {
+    private fun isClearVerticallyBetween(from: Position, to: Position): Boolean {
         if (from.col != to.col) return false
         val gap = abs(from.row - to.row) - 1
         if (gap == 0) return true
         for (i in 1..gap) {
             val nextRow = if (to.row > from.row) from.row + i else from.row - i
-            if (pieceAt(Square(from.col, nextRow)) != null) {
+            if (pieceAt(Position(from.col, nextRow)) != null) {
                 return false
             }
         }
         return true
     }
 
-    private fun isClearHorizontallyBetween(from: Square, to: Square): Boolean {
+    private fun isClearHorizontallyBetween(from: Position, to: Position): Boolean {
         if (from.row != to.row) return false
         val gap = abs(from.col - to.col) - 1
         if (gap == 0) return true
         for (i in 1..gap) {
             val nextCol = if (to.col > from.col) from.col + i else from.col - i
-            if (pieceAt(Square(nextCol, from.row)) != null) {
+            if (pieceAt(Position(nextCol, from.row)) != null) {
                 return false
             }
         }
         return true
     }
 
-    private fun isClearDiagonally(from: Square, to: Square): Boolean {
+    private fun isClearDiagonally(from: Position, to: Position): Boolean {
         if (abs(from.col - to.col) != abs(from.row - to.row)) return false
         val gap = abs(from.col - to.col) - 1
         for (i in 1..gap) {

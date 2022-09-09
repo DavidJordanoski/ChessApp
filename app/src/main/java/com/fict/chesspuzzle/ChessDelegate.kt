@@ -1,6 +1,6 @@
 package com.fict.chesspuzzle
 
 interface ChessDelegate {
-    fun pieceAt(square: Square) : ChessPiece?
-    fun moveFigure(from: Square, to: Square)
+    fun pieceAt(position: Position) : ChessPiece?
+    fun moveFigure(from: Position, to: Position)
 }
