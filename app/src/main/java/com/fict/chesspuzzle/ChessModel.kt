@@ -7,6 +7,7 @@ object ChessModel {
     var piecesBox = mutableSetOf<ChessPiece>()
 
     init {
+        reset()
 
 
         Log.d(TAG, toString())

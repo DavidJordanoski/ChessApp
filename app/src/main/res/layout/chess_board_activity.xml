@@ -1,7 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.fict.chesspuzzle.BoardView
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/board_view"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_height="match_parent"
-    android:layout_width="match_parent">
-</com.fict.chesspuzzle.BoardView>
+    android:layout_width="match_parent"
+    tools:context=".MainActivity">
+
+    <com.fict.chesspuzzle.BoardView
+        android:id="@+id/board_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintStart_toStartOf="parent"></com.fict.chesspuzzle.BoardView>
+
+    <TextView
+        android:id="@+id/chessBoardTitle"
+        android:layout_width="355dp"
+        android:layout_height="20dp"
+        android:text="TextView"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="24dp"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/chessBoardFen"
+        android:layout_width="384dp"
+        android:layout_height="21dp"
+        android:text="TextView"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="56dp"
+        tools:ignore="MissingConstraints" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,15 +1,20 @@
 package com.fict.chesspuzzle
 
 import android.os.Bundle
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import com.fict.chesspuzzle.model.PuzzleListModel
 
 const val TAG = "MainActivity"
 class MainActivity : AppCompatActivity(), ChessDelegate {
 
     private var chessModel = ChessModel
+    private lateinit var chessBoardTitle : TextView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.chess_board_activity)
+        initData()
+
 
         findViewById<BoardView>(R.id.board_view).chessDelegate = this
 
@@ -20,6 +25,19 @@ class MainActivity : AppCompatActivity(), ChessDelegate {
     override fun moveFigure(from: Position, to: Position) {
         chessModel.moveFigure(from,to)
         findViewById<BoardView>(R.id.board_view).invalidate()
+    }
+
+    private fun initData(){
+        chessBoardTitle = findViewById(R.id.chessBoardTitle)
+        getData()
+    }
+
+    private fun getData(){
+        var intent = intent.extras
+
+        var puzzle = intent!!.getString("puzzleTitle")
+        chessBoardTitle.text = puzzle
+
     }
 }
 
