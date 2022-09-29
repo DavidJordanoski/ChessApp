@@ -3,6 +3,7 @@ plugins {
   id 'org.jetbrains.kotlin.android'
 }
 
+
 android {
   compileSdk 32
 
@@ -47,6 +48,8 @@ android {
 }
 
 dependencies {
+  implementation 'com.github.bhlangonijr:chesslib:1.3.3'
+
   // Integration with activities
   implementation 'androidx.activity:activity-compose:1.4.0'
   // Compose Material Design

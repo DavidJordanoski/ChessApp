@@ -3,7 +3,8 @@ package com.fict.chesspuzzle
 import android.os.Bundle
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import com.fict.chesspuzzle.model.PuzzleListModel
+import com.github.bhlangonijr.chesslib.Board
+
 
 const val TAG = "MainActivity"
 class MainActivity : AppCompatActivity(), ChessDelegate {
@@ -39,5 +40,6 @@ class MainActivity : AppCompatActivity(), ChessDelegate {
         chessBoardTitle.text = puzzle
 
     }
+    var board = Board()
 }
 
