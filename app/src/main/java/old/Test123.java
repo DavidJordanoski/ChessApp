@@ -1,4 +1,4 @@
-package com.fict.chesspuzzle;
+package old;
 
 import android.os.Build;
 
@@ -6,9 +6,7 @@ import com.github.bhlangonijr.chesslib.Board;
 import com.github.bhlangonijr.chesslib.File;
 import com.github.bhlangonijr.chesslib.Piece;
 import com.github.bhlangonijr.chesslib.Rank;
-import com.github.bhlangonijr.chesslib.Side;
 import com.github.bhlangonijr.chesslib.Square;
-import com.github.bhlangonijr.chesslib.move.Move;
 
 import java.util.function.Supplier;
 import java.util.stream.IntStream;

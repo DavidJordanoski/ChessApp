@@ -1,4 +1,4 @@
-package com.fict.chesspuzzle
+package old
 
 interface ChessDelegate {
     fun pieceAt(position: Position) : ChessPiece?

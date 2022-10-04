@@ -1,4 +1,4 @@
-package com.fict.chesspuzzle
+package old
 
 import android.content.Context
 import android.graphics.*
@@ -6,6 +6,7 @@ import android.util.AttributeSet
 import android.util.Log
 import android.view.MotionEvent
 import android.view.View
+import com.fict.chesspuzzle.R
 import com.github.bhlangonijr.chesslib.Board
 import com.github.bhlangonijr.chesslib.File
 import com.github.bhlangonijr.chesslib.Rank

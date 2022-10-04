@@ -1,8 +1,9 @@
-package com.fict.chesspuzzle
+package old
 
 import android.os.Bundle
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import com.fict.chesspuzzle.R
 import com.github.bhlangonijr.chesslib.Board
 
 
@@ -24,7 +25,7 @@ class MainActivity : AppCompatActivity(), ChessDelegate {
     override fun pieceAt(position: Position): ChessPiece? = ChessModel.pieceAt(position)
 
     override fun moveFigure(from: Position, to: Position) {
-        chessModel.moveFigure(from,to)
+        ChessModel.moveFigure(from, to)
         findViewById<BoardView>(R.id.board_view).invalidate()
     }
 

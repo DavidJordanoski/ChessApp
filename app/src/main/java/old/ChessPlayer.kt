@@ -1,4 +1,4 @@
-package com.fict.chesspuzzle
+package old
 
 enum class ChessPlayer {
     WHITE,

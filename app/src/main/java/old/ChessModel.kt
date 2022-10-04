@@ -1,4 +1,4 @@
-package com.fict.chesspuzzle
+package old
 
 import android.util.Log
 import java.lang.Math.abs

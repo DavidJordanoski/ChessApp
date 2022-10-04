@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_height="match_parent"
     android:layout_width="match_parent"
-    tools:context=".MainActivity">
+    tools:context="old.MainActivity">
 
 
     <LinearLayout
@@ -32,7 +32,7 @@
             tools:layout_editor_absoluteX="16dp"
             tools:layout_editor_absoluteY="56dp" />
 
-        <com.fict.chesspuzzle.BoardView
+        <com.fict.chesspuzzle.Board
             android:id="@+id/board_view"
             android:layout_width="match_parent"
             android:layout_height="545dp"
@@ -41,7 +41,7 @@
             app:layout_constraintStart_toStartOf="parent"
             tools:layout_editor_absoluteY="81dp">
 
-        </com.fict.chesspuzzle.BoardView>
+        </com.fict.chesspuzzle.Board>
 
 
     </LinearLayout>
