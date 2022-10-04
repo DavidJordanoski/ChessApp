@@ -7,29 +7,45 @@
     android:layout_width="match_parent"
     tools:context=".MainActivity">
 
-    <com.fict.chesspuzzle.BoardView
-        android:id="@+id/board_view"
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_constraintStart_toStartOf="parent"></com.fict.chesspuzzle.BoardView>
+        android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/chessBoardTitle"
-        android:layout_width="355dp"
-        android:layout_height="20dp"
-        android:text="TextView"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="24dp"
-        tools:ignore="MissingConstraints" />
+        <TextView
+            android:id="@+id/chessBoardTitle"
+            android:layout_width="match_parent"
+            android:layout_height="21dp"
+            android:text=""
+            android:textAlignment="center"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteX="16dp"
+            tools:layout_editor_absoluteY="6dp" />
 
-    <TextView
-        android:id="@+id/chessBoardFen"
-        android:layout_width="384dp"
-        android:layout_height="21dp"
-        android:text="TextView"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="56dp"
-        tools:ignore="MissingConstraints" />
+        <TextView
+            android:id="@+id/chessBoardFen"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:text=""
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteX="16dp"
+            tools:layout_editor_absoluteY="56dp" />
+
+        <com.fict.chesspuzzle.BoardView
+            android:id="@+id/board_view"
+            android:layout_width="match_parent"
+            android:layout_height="545dp"
+            android:layout_marginTop="75dp"
+            android:layout_marginBottom="75dp"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:layout_editor_absoluteY="81dp">
+
+        </com.fict.chesspuzzle.BoardView>
+
+
+    </LinearLayout>
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

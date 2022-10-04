@@ -6,8 +6,10 @@ import android.util.AttributeSet
 import android.util.Log
 import android.view.MotionEvent
 import android.view.View
-import androidx.core.graphics.minus
-import androidx.core.graphics.plus
+import com.github.bhlangonijr.chesslib.Board
+import com.github.bhlangonijr.chesslib.File
+import com.github.bhlangonijr.chesslib.Rank
+import com.github.bhlangonijr.chesslib.Square
 import kotlin.math.min
 
 class BoardView(context: Context?, attrs: AttributeSet?) : View(context, attrs) {
@@ -120,6 +122,7 @@ class BoardView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
         }
     }
     private  fun drawChessBoard (canvas: Canvas?) {
+        var board = Board();
 
         for (row in 0..7) {
             for (col in 0..7) {
@@ -133,13 +136,48 @@ class BoardView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
             }
         }
 
-        for (row in 0..7) {
-            for (col in 0..7) {
-                paint.color = if ((row + col) % 2 == 1) resources.getColor(R.color.green) else resources.getColor(R.color.creamy)
-                canvas?.drawRect(originX + row * cellSide, originY + col * cellSide,
-                    originX + (row+1) * cellSide, originY + (col+1) * cellSide, paint)
+//        rankIterator.get().forEach(i -> {
+//            Rank r = Rank.allRanks[i];
+//            fileIterator.get().forEach(n -> {
+//            File f = File.allFiles[n];
+//            if (!File.NONE.equals(f) && !Rank.NONE.equals(r)) {
+//                Square sq = Square.encode(r, f);
+//                Piece piece = board.getPiece(sq);
+//                if(sq.isLightSquare()) {
+//
+//                }
+////                    sb.append(piece.getFenSymbol());
+//            }
+//        });
+//        });
+
+        for (rank in 0..7) {
+            var r = Rank.allRanks[rank];
+            for(file in 0..7) {
+                var f = File.allFiles[file]
+                if(!File.NONE.equals(f) && !Rank.NONE.equals(r)) {
+                    var sq = Square.encode(r,f);
+                    var piece = board.getPiece(sq);
+
+                    if(sq.isLightSquare) {
+                        paint.color = resources.getColor(R.color.creamy)
+                    } else {
+                        paint.color = resources.getColor(R.color.green)
+                    }
+
+                    canvas?.drawRect(originX + rank * cellSide, originY + file * cellSide,
+                        originX + (rank+1) * cellSide, originY + (file+1) * cellSide, paint)
+                }
             }
         }
+
+//        for (row in 0..7) {
+//            for (col in 0..7) {
+//                paint.color = if ((row + col) % 2 == 1) resources.getColor(R.color.green) else resources.getColor(R.color.creamy)
+//                canvas?.drawRect(originX + row * cellSide, originY + col * cellSide,
+//                    originX + (row+1) * cellSide, originY + (col+1) * cellSide, paint)
+//            }
+//        }
 
         for (row in 0..7) {
             for (col in 0..7) {
