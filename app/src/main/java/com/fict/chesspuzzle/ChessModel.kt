@@ -25,7 +25,7 @@ object ChessModel {
     fun pieceAt(file: File, rank: Rank): AddPieces? {
         for (piece in piecesBox) {
             if (file == piece.file && rank == piece.rank) {
-                return  piece
+                return piece
             }
         }
         return null
@@ -42,29 +42,42 @@ object ChessModel {
 
     fun reset() {
         clear()
-        for (i in 0 until 2) {
-            addPiece(AddPieces(File.FILE_E, Rank.RANK_4, R.drawable.white_rook))
-            addPiece(AddPieces(File.FILE_A, Rank.RANK_8, R.drawable.black_rook))
+        addPiece(AddPieces(File.FILE_A, Rank.RANK_1, R.drawable.white_rook))
+        addPiece(AddPieces(File.FILE_B, Rank.RANK_1, R.drawable.white_knight))
+        addPiece(AddPieces(File.FILE_C, Rank.RANK_1, R.drawable.white_bishop))
+        addPiece(AddPieces(File.FILE_D, Rank.RANK_1, R.drawable.white_queen))
+        addPiece(AddPieces(File.FILE_E, Rank.RANK_1, R.drawable.white_king))
+        addPiece(AddPieces(File.FILE_F, Rank.RANK_1, R.drawable.white_bishop))
+        addPiece(AddPieces(File.FILE_G, Rank.RANK_1, R.drawable.white_knight))
+        addPiece(AddPieces(File.FILE_H, Rank.RANK_1, R.drawable.white_rook))
 
+        addPiece(AddPieces(File.FILE_A, Rank.RANK_2,R.drawable.white_pawn))
+        addPiece(AddPieces(File.FILE_B, Rank.RANK_2,R.drawable.white_pawn))
+        addPiece(AddPieces(File.FILE_C, Rank.RANK_2,R.drawable.white_pawn))
+        addPiece(AddPieces(File.FILE_D, Rank.RANK_2,R.drawable.white_pawn))
+        addPiece(AddPieces(File.FILE_E, Rank.RANK_2,R.drawable.white_pawn))
+        addPiece(AddPieces(File.FILE_F, Rank.RANK_2,R.drawable.white_pawn))
+        addPiece(AddPieces(File.FILE_G, Rank.RANK_2,R.drawable.white_pawn))
+        addPiece(AddPieces(File.FILE_H, Rank.RANK_2,R.drawable.white_pawn))
 
-   /*         addPiece(ChessPiece(1 + i * 5, 0, Player.WHITE, Chessman.KNIGHT, R.drawable.knight_white))
-            addPiece(ChessPiece(1 + i * 5, 7, Player.BLACK, Chessman.KNIGHT, R.drawable.knight_black))
+        addPiece(AddPieces(File.FILE_A, Rank.RANK_8, R.drawable.black_rook))
+        addPiece(AddPieces(File.FILE_B, Rank.RANK_8, R.drawable.black_knight))
+        addPiece(AddPieces(File.FILE_C, Rank.RANK_8, R.drawable.black_bishop))
+        addPiece(AddPieces(File.FILE_D, Rank.RANK_8, R.drawable.black_queen))
+        addPiece(AddPieces(File.FILE_E, Rank.RANK_8, R.drawable.black_king))
+        addPiece(AddPieces(File.FILE_F, Rank.RANK_8, R.drawable.black_bishop))
+        addPiece(AddPieces(File.FILE_G, Rank.RANK_8, R.drawable.black_knight))
+        addPiece(AddPieces(File.FILE_H, Rank.RANK_8, R.drawable.black_rook))
 
-            addPiece(ChessPiece(2 + i * 3, 0, Player.WHITE, Chessman.BISHOP, R.drawable.bishop_white))
-            addPiece(ChessPiece(2 + i * 3, 7, Player.BLACK, Chessman.BISHOP, R.drawable.bishop_black))
-        }
+        addPiece(AddPieces(File.FILE_A, Rank.RANK_7,R.drawable.black_pawn))
+        addPiece(AddPieces(File.FILE_B, Rank.RANK_7,R.drawable.black_pawn))
+        addPiece(AddPieces(File.FILE_C, Rank.RANK_7,R.drawable.black_pawn))
+        addPiece(AddPieces(File.FILE_D, Rank.RANK_7,R.drawable.black_pawn))
+        addPiece(AddPieces(File.FILE_E, Rank.RANK_7,R.drawable.black_pawn))
+        addPiece(AddPieces(File.FILE_F, Rank.RANK_7,R.drawable.black_pawn))
+        addPiece(AddPieces(File.FILE_G, Rank.RANK_7,R.drawable.black_pawn))
+        addPiece(AddPieces(File.FILE_H, Rank.RANK_7,R.drawable.black_pawn))
 
-        for (i in 0 until 8) {
-            addPiece(ChessPiece(i, 1, Player.WHITE, Chessman.PAWN, R.drawable.pawn_white))
-            addPiece(ChessPiece(i, 6, Player.BLACK, Chessman.PAWN, R.drawable.pawn_black))
-        }
-
-        addPiece(ChessPiece(3, 0, Player.WHITE, Chessman.QUEEN, R.drawable.queen_white))
-        addPiece(ChessPiece(3, 7, Player.BLACK, Chessman.QUEEN, R.drawable.queen_black))
-        addPiece(ChessPiece(4, 0, Player.WHITE, Chessman.KING, R.drawable.king_white))
-        addPiece(ChessPiece(4, 7, Player.BLACK, Chessman.KING, R.drawable.king_black))
-    }*/
-
-}
     }
 }
+

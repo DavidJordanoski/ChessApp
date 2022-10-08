@@ -6,9 +6,10 @@ import android.util.AttributeSet
 import android.util.Log
 import android.view.View
 import com.github.bhlangonijr.chesslib.*
-import com.github.bhlangonijr.chesslib.move.Move
+import com.github.bhlangonijr.chesslib.Board
 import old.TAG
 import kotlin.math.min
+
 
 class Board(context: Context?, attrs: AttributeSet?) : View(context, attrs) {
 
@@ -60,35 +61,33 @@ class Board(context: Context?, attrs: AttributeSet?) : View(context, attrs) {
     }
 
     private fun drawPieces(canvas: Canvas?) {
-        drawPieceAt(canvas, File.FILE_D, Rank.RANK_1, R.drawable.white_queen,Piece.WHITE_QUEEN)
+//        for (rank in 0..7) {
+//            var r = Rank.allRanks[rank]
+//            for (file in 0..7) {
+//                var f = File.allFiles[file]
+//
+//                chessDelegate?.pieceAt(f,r)?.let {
+//                        drawPieceAt(canvas,f , r, it.resourceID,)
+//
+//                }
+//            }
+//        }
     }
 
-    /*private fun drawPieces(canvas: Canvas?) {
-        for (rank in 0..7) {
-            var r = Rank.allRanks[rank]
-            for (file in 0..7) {
-                var f = File.allFiles[file]
+    private val fenToPiece: Map<String, Piece> = HashMap(13)
 
-                chessDelegate?.pieceAt(f,r)?.let {
-                        drawPieceAt(canvas,f , r, it.resourceID)
+    fun fromFenSymbol(fenSymbol: String?): Piece {
+        return fenToPiece.get(fenSymbol)
+            ?: throw IllegalArgumentException(String.format("Unknown piece '%s'", fenSymbol))
+    }
 
-                }
-            }
+
+    private fun drawPieceAt(canvas: Canvas?, file: File, rank: Rank, resID: Int, piece: Piece) {
+        if(resID == -1) {
+            return;
         }
-    }*/
-
-    private fun drawPieceAt(canvas: Canvas?, file: File, rank: Rank,resID: Int,piece: Piece) {
 
         val bitmap = bitmaps[resID]!!
-
-            when (piece.fenSymbol) {
-                "Q" -> {R.drawable.white_queen}
-                "N" -> {R.drawable.black_knight}
-                else -> {}
-            }
-
-            println(board)
-
 
         canvas?.drawBitmap(bitmap, null, RectF (originX + file.ordinal * cellSide, originY + (7-rank.ordinal) * cellSide,
             originX +(file.ordinal+1) * cellSide, originY + ((7-rank.ordinal)+1) * cellSide), paint)
@@ -98,7 +97,6 @@ class Board(context: Context?, attrs: AttributeSet?) : View(context, attrs) {
 
 
     private  fun drawChessBoard (canvas: Canvas?) {
-        var board = Board();
 
         for (row in 0..7) {
             for (col in 0..7) {
@@ -128,6 +126,8 @@ class Board(context: Context?, attrs: AttributeSet?) : View(context, attrs) {
 
                     canvas?.drawRect(originX + rank * cellSide, originY + file * cellSide,
                         originX + (rank+1) * cellSide, originY + (file+1) * cellSide, paint)
+
+                    drawPieceAt(canvas, f, r, getResIdByFenSymbol(piece.fenSymbol), piece);
                 }
             }
         }
@@ -159,4 +159,13 @@ class Board(context: Context?, attrs: AttributeSet?) : View(context, attrs) {
         }
     }
 
+    fun getResIdByFenSymbol(fen : String) : Int {
+        when (fen) {
+            "P" -> return R.drawable.white_pawn
+            "p" -> return R.drawable.black_pawn
+            "Q" -> return R.drawable.white_queen
+        }
+
+        return -1
+    }
 }
