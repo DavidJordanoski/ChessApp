@@ -1,19 +1,19 @@
 package com.fict.chesspuzzle
 
 import android.content.Context
+import android.content.Intent
 import android.graphics.*
 import android.util.AttributeSet
 import android.util.Log
 import android.view.View
 import com.github.bhlangonijr.chesslib.*
-import com.github.bhlangonijr.chesslib.Board
 import old.TAG
 import kotlin.math.min
 
 
-class Board(context: Context?, attrs: AttributeSet?) : View(context, attrs) {
+open class BoardView(context: Context?, attrs: AttributeSet?) : View(context, attrs){
 
-    private val board = Board()
+    val board = Board()
     private var originX = 40f
     private var originY = 250f
     private var cellSide = 170f
@@ -35,7 +35,8 @@ class Board(context: Context?, attrs: AttributeSet?) : View(context, attrs) {
     )
     private val bitmaps = mutableMapOf<Int, Bitmap>()
 
-    var chessDelegate: com.fict.chesspuzzle.ChessDelegate? = null
+
+
     init {
         loadBitmaps()
     }
@@ -57,7 +58,7 @@ class Board(context: Context?, attrs: AttributeSet?) : View(context, attrs) {
         }
 
         drawChessBoard(canvas)
-        drawPieces(canvas)
+
     }
 
     private fun drawPieces(canvas: Canvas?) {
@@ -74,23 +75,16 @@ class Board(context: Context?, attrs: AttributeSet?) : View(context, attrs) {
 //        }
     }
 
-    private val fenToPiece: Map<String, Piece> = HashMap(13)
-
-    fun fromFenSymbol(fenSymbol: String?): Piece {
-        return fenToPiece.get(fenSymbol)
-            ?: throw IllegalArgumentException(String.format("Unknown piece '%s'", fenSymbol))
-    }
-
-
     private fun drawPieceAt(canvas: Canvas?, file: File, rank: Rank, resID: Int, piece: Piece) {
         if(resID == -1) {
             return;
         }
-
         val bitmap = bitmaps[resID]!!
-
         canvas?.drawBitmap(bitmap, null, RectF (originX + file.ordinal * cellSide, originY + (7-rank.ordinal) * cellSide,
-            originX +(file.ordinal+1) * cellSide, originY + ((7-rank.ordinal)+1) * cellSide), paint)
+        originX +(file.ordinal+1) * cellSide, originY + ((7-rank.ordinal)+1) * cellSide), paint)
+
+        //canvas?.drawBitmap(bitmap, null, RectF (originX + rank.ordinal * cellSide, originY + file.ordinal * cellSide,
+     //       originX + (rank.ordinal+1) * cellSide, originY + (file.ordinal+1) * cellSide), paint)
     }
 
 
@@ -124,8 +118,8 @@ class Board(context: Context?, attrs: AttributeSet?) : View(context, attrs) {
                         paint.color = resources.getColor(R.color.green)
                     }
 
-                    canvas?.drawRect(originX + rank * cellSide, originY + file * cellSide,
-                        originX + (rank+1) * cellSide, originY + (file+1) * cellSide, paint)
+                    canvas?.drawRect(originX + file * cellSide, originY + (7-rank) * cellSide,
+                        originX +(file+1) * cellSide, originY + ((7-rank)+1) * cellSide, paint)
 
                     drawPieceAt(canvas, f, r, getResIdByFenSymbol(piece.fenSymbol), piece);
                 }
@@ -162,8 +156,17 @@ class Board(context: Context?, attrs: AttributeSet?) : View(context, attrs) {
     fun getResIdByFenSymbol(fen : String) : Int {
         when (fen) {
             "P" -> return R.drawable.white_pawn
-            "p" -> return R.drawable.black_pawn
+            "N" -> return R.drawable.white_knight
+            "B" -> return R.drawable.white_bishop
+            "R" -> return R.drawable.white_rook
             "Q" -> return R.drawable.white_queen
+            "K" -> return R.drawable.white_king
+            "p" -> return R.drawable.black_pawn
+            "n" -> return R.drawable.black_knight
+            "b" -> return R.drawable.black_bishop
+            "r" -> return R.drawable.black_rook
+            "q" -> return R.drawable.black_queen
+            "k" -> return R.drawable.black_king
         }
 
         return -1
