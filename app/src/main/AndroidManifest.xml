@@ -13,11 +13,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ChessPuzzle"
         tools:targetApi="31">
-        <activity android:name=".PuzzleList"
+        <activity android:name=".BoardActivity"
             android:exported="false">
         </activity>
         <activity
-            android:name=".BoardActivity"
+            android:name=".PuzzleList"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

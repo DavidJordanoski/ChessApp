@@ -6,6 +6,7 @@ import android.graphics.*
 import android.util.AttributeSet
 import android.util.Log
 import android.view.View
+import com.fict.chesspuzzle.Model.board
 import com.github.bhlangonijr.chesslib.*
 import old.TAG
 import kotlin.math.min
@@ -13,7 +14,6 @@ import kotlin.math.min
 
 open class BoardView(context: Context?, attrs: AttributeSet?) : View(context, attrs){
 
-    val board = Board()
     private var originX = 40f
     private var originY = 250f
     private var cellSide = 170f

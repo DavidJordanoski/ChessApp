@@ -47,7 +47,7 @@ class PuzzleList : AppCompatActivity(), PuzzleListAdapter.ClickListener {
     }
 
     override fun clickedItem(puzzleListModel: PuzzleListModel) {
-        val intent = Intent(this, BoardView::class.java)
+        val intent = Intent(this, BoardActivity::class.java)
         intent.putExtra("fen", puzzleListModel.puzzleFen)
         startActivity(intent)
     }
