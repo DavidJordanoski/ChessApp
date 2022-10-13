@@ -10,11 +10,8 @@ class BoardActivity : AppCompatActivity() {
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.chess_board_activity)
-
-    //findViewById<BoardView>(R.id.board_view)
-
-    val string = intent.getStringExtra("fen")
-    board.loadFromFen(string)
+    val fen = intent.getStringExtra("fen")
+    board.loadFromFen(fen + " w")
     for (squares in Square.values()) {
       val piece = board.getPiece(squares)
       println(piece)

@@ -27,6 +27,15 @@ class PuzzleListActivity : AppCompatActivity(), PuzzleListAdapter.ClickListener 
 
   private fun getMockPuzzles(): List<PuzzleModel> {
     var puzzlesList = ArrayList<PuzzleModel>()
+
+    val suffix = " b KQkq e3 0 1"
+    //b/w - side to move
+    //KQ - caste king and queen side
+    //K - king side
+    //Q - queen side
+    //with lower case for the black side, capital for the white side
+
+
     puzzlesList.add(PuzzleModel("1nb1kbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR", "Chess Title 1"))
     puzzlesList.add(PuzzleModel("2bqkbnr/1ppppppp/p7/8/8/8/PPPPPPPP/RNBQKBNR", "Chess Title 2"))
     puzzlesList.add(PuzzleModel("1nbqkbnr/1pppp1pp/p7/8/8/8/PPPPPPPP/RNBQKBNR", "Chess Title 3"))
