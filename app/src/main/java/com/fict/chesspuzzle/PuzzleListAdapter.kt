@@ -6,17 +6,16 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.fict.chesspuzzle.R
 
 
 class PuzzleListAdapter(clickListener: ClickListener) : RecyclerView.Adapter<PuzzleListAdapter.MyViewHolder>() {
 
-    private var puzzlesList: List<PuzzleListModel> = arrayListOf()
+    private var puzzlesList: List<PuzzleModel> = arrayListOf()
     private lateinit var context: Context
     private var clickListener: ClickListener = clickListener
 
-    public fun setData(puzzleListModel: List<PuzzleListModel>) {
-        this.puzzlesList = puzzleListModel
+    public fun setData(puzzleModel: List<PuzzleModel>) {
+        this.puzzlesList = puzzleModel
         notifyDataSetChanged()
     }
 
@@ -29,8 +28,8 @@ class PuzzleListAdapter(clickListener: ClickListener) : RecyclerView.Adapter<Puz
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         var puzzleListModel = puzzlesList.get(position)
-        var title = puzzleListModel.puzzleTitle
-        var fen = puzzleListModel.puzzleFen
+        var title = puzzleListModel.description
+        var fen = puzzleListModel.fen
 
         holder.tvTitle.text = title
         holder.tvFen.text = fen
@@ -46,7 +45,7 @@ class PuzzleListAdapter(clickListener: ClickListener) : RecyclerView.Adapter<Puz
     }
 
     interface ClickListener{
-        fun clickedItem(puzzleListModel: PuzzleListModel)
+        fun clickedItem(puzzleModel: PuzzleModel)
     }
 
     class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

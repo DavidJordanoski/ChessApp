@@ -6,7 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
-class PuzzleList : AppCompatActivity(), PuzzleListAdapter.ClickListener {
+class PuzzleListActivity : AppCompatActivity(), PuzzleListAdapter.ClickListener {
     private lateinit var recyclerView: RecyclerView
     private lateinit var puzzleListAdapter: PuzzleListAdapter
 
@@ -28,16 +28,12 @@ class PuzzleList : AppCompatActivity(), PuzzleListAdapter.ClickListener {
         showData();
     }
 
-    private fun addPuzzles():List<PuzzleListModel> {
-        var puzzlesList = ArrayList<PuzzleListModel>()
-        puzzlesList.add(PuzzleListModel("Chess Title 1", "1nb1kbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1"))
-        puzzlesList.add(PuzzleListModel("Chess Title 2", "2bqkbnr/1ppppppp/p7/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1"))
-        puzzlesList.add(PuzzleListModel("Chess Title 3", "1nbqkbnr/1pppp1pp/p7/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1"))
-        puzzlesList.add(PuzzleListModel("Chess Title 4", "rnbqkbnr/ppppp1pp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1"))
-        puzzlesList.add(PuzzleListModel("Chess Title 5", "FEN 5"))
-        puzzlesList.add(PuzzleListModel("Chess Title 6", "FEN 6"))
-        puzzlesList.add(PuzzleListModel("Chess Title 7", "FEN 7"))
-        puzzlesList.add(PuzzleListModel("Chess Title 8", "FEN 8"))
+    private fun addPuzzles():List<PuzzleModel> {
+        var puzzlesList = ArrayList<PuzzleModel>()
+        puzzlesList.add(PuzzleModel( "1nb1kbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR","Chess Title 1"))
+        puzzlesList.add(PuzzleModel( "2bqkbnr/1ppppppp/p7/8/8/8/PPPPPPPP/RNBQKBNR","Chess Title 2"))
+        puzzlesList.add(PuzzleModel( "1nbqkbnr/1pppp1pp/p7/8/8/8/PPPPPPPP/RNBQKBNR","Chess Title 3"))
+        puzzlesList.add(PuzzleModel( "rnbqkbnr/ppppp1pp/8/8/8/8/PPPPPPPP/RNBQKBNR","Chess Title 4"))
 
         return puzzlesList
     }
@@ -46,12 +42,10 @@ class PuzzleList : AppCompatActivity(), PuzzleListAdapter.ClickListener {
         puzzleListAdapter.setData(addPuzzles())
     }
 
-    override fun clickedItem(puzzleListModel: PuzzleListModel) {
+    override fun clickedItem(puzzleModel: PuzzleModel) {
         val intent = Intent(this, BoardActivity::class.java)
-        intent.putExtra("fen", puzzleListModel.puzzleFen)
+        intent.putExtra("fen", puzzleModel.fen)
         startActivity(intent)
     }
-
-
 }
 

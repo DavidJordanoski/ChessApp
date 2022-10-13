@@ -6,6 +6,6 @@ import com.github.bhlangonijr.chesslib.Square
 
 
 interface ChessDelegate {
-    fun pieceAt(square: Square) : ChessPieceLocation?
+    //fun pieceAt(square: Square) : ChessPieceLocation?
     fun moveFigure(from: Square, to: Square)
 }
