@@ -50,9 +50,8 @@ class PuzzleListAdapter(clickListener: ClickListener) : RecyclerView.Adapter<Puz
     }
 
     class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-
-        val tvTitle = itemView.findViewById<TextView>(R.id.puzzleTitle)
-        val tvFen = itemView.findViewById<TextView>(R.id.puzzleFEN)
+        val tvTitle = itemView.findViewById<TextView>(R.id.descriptionTextView)
+        val tvFen = itemView.findViewById<TextView>(R.id.fenTextView)
     }
 
 

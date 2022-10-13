@@ -18,7 +18,7 @@ class PuzzleList : AppCompatActivity(), PuzzleListAdapter.ClickListener {
 
     }
     private fun initData(){
-        recyclerView = findViewById(R.id.RecyclerView)
+        recyclerView = findViewById(R.id.recyclerView)
         initRecyclerView();
     }
 

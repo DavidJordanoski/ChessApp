@@ -14,10 +14,6 @@ import com.github.bhlangonijr.chesslib.*
 import com.github.bhlangonijr.chesslib.move.Move
 import com.github.bhlangonijr.chesslib.move.MoveGenerator
 import com.github.bhlangonijr.chesslib.move.MoveList
-import old.ChessDelegate
-import old.ChessPiece
-import old.Position
-import old.TAG
 import kotlin.math.min
 
 
@@ -67,7 +63,7 @@ open class BoardView(context: Context?, attrs: AttributeSet?) : View(context, at
 
     override fun onDraw(canvas: Canvas?) {
 
-        Log.d(TAG, "${canvas?.width}, ${canvas?.height}")
+        Log.d("TAG", "${canvas?.width}, ${canvas?.height}")
         canvas?.let {
             val chessBoardSide = min(it.width, it.height) * scaleFactor
             cellSide = chessBoardSide / 8f
