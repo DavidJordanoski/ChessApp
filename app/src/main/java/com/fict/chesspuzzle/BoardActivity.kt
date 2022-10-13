@@ -14,10 +14,7 @@ class BoardActivity : AppCompatActivity() {
     board.loadFromFen(fen + " w")
     for (squares in Square.values()) {
       val piece = board.getPiece(squares)
-      println(piece)
     }
-
-    print(board)
   }
 
 }

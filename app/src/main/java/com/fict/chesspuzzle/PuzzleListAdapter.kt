@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.fict.chesspuzzle.models.PuzzleModel
 
 
 class PuzzleListAdapter(clickListener: ClickListener) : RecyclerView.Adapter<PuzzleListAdapter.MyViewHolder>() {

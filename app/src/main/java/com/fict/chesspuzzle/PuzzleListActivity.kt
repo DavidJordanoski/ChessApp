@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.fict.chesspuzzle.models.PuzzleModel
 
 class PuzzleListActivity : AppCompatActivity(), PuzzleListAdapter.ClickListener {
   private lateinit var recyclerView: RecyclerView
@@ -35,6 +36,8 @@ class PuzzleListActivity : AppCompatActivity(), PuzzleListAdapter.ClickListener 
     //Q - queen side
     //with lower case for the black side, capital for the white side
 
+    puzzlesList.add(PuzzleModel("5bnr/ppp/8/8/8/8/8/6NR", "Chess Title 100"))
+    puzzlesList.add(PuzzleModel("8/1p1p1p/8/8/8/8/8/8", "Chess Title 101"))
 
     puzzlesList.add(PuzzleModel("1nb1kbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR", "Chess Title 1"))
     puzzlesList.add(PuzzleModel("2bqkbnr/1ppppppp/p7/8/8/8/PPPPPPPP/RNBQKBNR", "Chess Title 2"))
