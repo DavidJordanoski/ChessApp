@@ -6,5 +6,6 @@ import com.github.bhlangonijr.chesslib.Square
 
 
 interface ChessDelegate {
-    fun pieceAt(file: File,rank: Rank) : AddPieces?
+    fun pieceAt(square: Square) : ChessPieceLocation?
+    fun moveFigure(from: Square, to: Square)
 }

@@ -3,11 +3,20 @@ package com.fict.chesspuzzle
 import android.content.Context
 import android.content.Intent
 import android.graphics.*
+import android.graphics.drawable.Drawable
 import android.util.AttributeSet
 import android.util.Log
+import android.view.MotionEvent
 import android.view.View
+import androidx.core.content.ContextCompat
 import com.fict.chesspuzzle.Model.board
 import com.github.bhlangonijr.chesslib.*
+import com.github.bhlangonijr.chesslib.move.Move
+import com.github.bhlangonijr.chesslib.move.MoveGenerator
+import com.github.bhlangonijr.chesslib.move.MoveList
+import old.ChessDelegate
+import old.ChessPiece
+import old.Position
 import old.TAG
 import kotlin.math.min
 
@@ -18,7 +27,16 @@ open class BoardView(context: Context?, attrs: AttributeSet?) : View(context, at
     private var originY = 250f
     private var cellSide = 170f
     private val scaleFactor = .9f
+    private var fromCol: Int = -1
+    private var fromRow: Int = -1
+    private var movingFigureX = -1f
+    private var movingFigureY = -1f
+
     private val paint = Paint ()
+
+    private var sqFrom: Square? = null
+    private var sq: Square? = null
+
     private final val imgResourceIDs = setOf(
         R.drawable.black_bishop,
         R.drawable.black_king,
@@ -34,8 +52,8 @@ open class BoardView(context: Context?, attrs: AttributeSet?) : View(context, at
         R.drawable.white_rook,
     )
     private val bitmaps = mutableMapOf<Int, Bitmap>()
-
-
+    val moveList = MoveList()
+    var chessDelegate: com.fict.chesspuzzle.ChessDelegate? = null
 
     init {
         loadBitmaps()
@@ -61,18 +79,29 @@ open class BoardView(context: Context?, attrs: AttributeSet?) : View(context, at
 
     }
 
-    private fun drawPieces(canvas: Canvas?) {
-//        for (rank in 0..7) {
-//            var r = Rank.allRanks[rank]
-//            for (file in 0..7) {
-//                var f = File.allFiles[file]
-//
-//                chessDelegate?.pieceAt(f,r)?.let {
-//                        drawPieceAt(canvas,f , r, it.resourceID,)
-//
-//                }
-//            }
-//        }
+    override fun onTouchEvent(event: MotionEvent?): Boolean {
+        event ?: return false
+        when (event.action) {
+            MotionEvent.ACTION_DOWN -> {
+                fromCol = ((event.x - originX) / cellSide).toInt()
+                fromRow = 7 - ((event.y - originY) / cellSide).toInt()
+                val rankX = Square.squareAt(fromRow)
+                val fileY = Square.squareAt(fromCol)
+                sqFrom = Square.encode(rankX.rank,fileY.file)
+        }
+
+            MotionEvent.ACTION_UP -> {
+                    fromCol = ((event.x - originX) / cellSide).toInt()
+                    fromRow = 7 - ((event.y - originY) / cellSide).toInt()
+                    val rankX = Square.squareAt(fromRow)
+                    val fileY = Square.squareAt(fromCol)
+                    sq = Square.encode(rankX.rank,fileY.file)
+                   board.doMove(Move(sqFrom,sq))
+
+            }
+        }
+        invalidate()
+        return true
     }
 
     private fun drawPieceAt(canvas: Canvas?, file: File, rank: Rank, resID: Int, piece: Piece) {
@@ -83,8 +112,6 @@ open class BoardView(context: Context?, attrs: AttributeSet?) : View(context, at
         canvas?.drawBitmap(bitmap, null, RectF (originX + file.ordinal * cellSide, originY + (7-rank.ordinal) * cellSide,
         originX +(file.ordinal+1) * cellSide, originY + ((7-rank.ordinal)+1) * cellSide), paint)
 
-        //canvas?.drawBitmap(bitmap, null, RectF (originX + rank.ordinal * cellSide, originY + file.ordinal * cellSide,
-     //       originX + (rank.ordinal+1) * cellSide, originY + (file.ordinal+1) * cellSide), paint)
     }
 
 

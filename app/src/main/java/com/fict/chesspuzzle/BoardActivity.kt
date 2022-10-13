@@ -18,7 +18,6 @@ class BoardActivity : AppCompatActivity() {
         findViewById<BoardView>(R.id.board_view)
         val string = intent.getStringExtra("fen")
         board.loadFromFen(string)
-        board.setPiece(Piece.WHITE_KING,Square.A1)
         for (squares in Square.values()){
             val piece = board.getPiece(squares)
             println(piece)
