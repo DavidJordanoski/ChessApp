@@ -77,19 +77,19 @@ class BoardView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
       MotionEvent.ACTION_DOWN -> {
         fromCol = ((event.x - originX) / cellSide).toInt()
         fromRow = 7 - ((event.y - originY) / cellSide).toInt()
-        val rankX = Rank.allRanks[fromRow]
-        val fileY = File.allFiles[fromCol]
-        sqFrom = Square.encode(rankX, fileY)
+        val fileX = File.allFiles[fromCol]
+        val rankY = Rank.allRanks[fromRow]
+        sqFrom = Square.encode(rankY, fileX)
       }
 
       MotionEvent.ACTION_UP -> {
-        val fromCol = ((event.x - originX) / cellSide).toInt()
-        val fromRow = 7 - ((event.y - originY) / cellSide).toInt()
-        val rankX = Rank.allRanks[fromRow]
-        val fileY = File.allFiles[fromCol]
-        sq = Square.encode(rankX, fileY)
+        val toCol = ((event.x - originX) / cellSide).toInt()
+        val toRow = 7 - ((event.y - originY) / cellSide).toInt()
+        val fileX = File.allFiles[toCol]
+        val rankY = Rank.allRanks[toRow]
+        sq = Square.encode(rankY, fileX)
         board.doMove(Move(sqFrom, sq))
-
+        println(board)
       }
     }
     invalidate()
