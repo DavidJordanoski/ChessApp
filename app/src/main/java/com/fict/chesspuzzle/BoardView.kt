@@ -77,17 +77,17 @@ class BoardView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
       MotionEvent.ACTION_DOWN -> {
         fromCol = ((event.x - originX) / cellSide).toInt()
         fromRow = 7 - ((event.y - originY) / cellSide).toInt()
-        val rankX = Square.squareAt(fromRow)
-        val fileY = Square.squareAt(fromCol)
-        sqFrom = Square.encode(rankX.rank, fileY.file)
+        val rankX = Rank.allRanks[fromRow]
+        val fileY = File.allFiles[fromCol]
+        sqFrom = Square.encode(rankX, fileY)
       }
 
       MotionEvent.ACTION_UP -> {
-        fromCol = ((event.x - originX) / cellSide).toInt()
-        fromRow = 7 - ((event.y - originY) / cellSide).toInt()
-        val rankX = Square.squareAt(fromRow)
-        val fileY = Square.squareAt(fromCol)
-        sq = Square.encode(rankX.rank, fileY.file)
+        val fromCol = ((event.x - originX) / cellSide).toInt()
+        val fromRow = 7 - ((event.y - originY) / cellSide).toInt()
+        val rankX = Rank.allRanks[fromRow]
+        val fileY = File.allFiles[fromCol]
+        sq = Square.encode(rankX, fileY)
         board.doMove(Move(sqFrom, sq))
 
       }
@@ -96,7 +96,7 @@ class BoardView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
     return true
   }
 
-  private fun drawPieceAt(canvas: Canvas?, file: File, rank: Rank, resID: Int, piece: Piece) {
+  private fun drawPieceAt(canvas: Canvas?, file: File, rank: Rank, resID: Int) {
     if (resID == -1) {
       return;
     }
@@ -151,7 +151,7 @@ class BoardView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
             paint
           )
 
-          drawPieceAt(canvas, f, r, getResIdByFenSymbol(piece.fenSymbol), piece);
+          drawPieceAt(canvas, f, r, getResIdByFenSymbol(piece.fenSymbol));
         }
       }
     }
