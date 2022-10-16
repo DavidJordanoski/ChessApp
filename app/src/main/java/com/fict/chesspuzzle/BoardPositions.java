@@ -4,8 +4,6 @@ import com.github.bhlangonijr.chesslib.File;
 import com.github.bhlangonijr.chesslib.Rank;
 import com.github.bhlangonijr.chesslib.Square;
 
-import java.util.Map;
-
 public class BoardPositions {
     int x;
     int y;
