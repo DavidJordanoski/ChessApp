@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.fict.chesspuzzle.compose.BoardComposeActivity
 import com.fict.chesspuzzle.models.PuzzleModel
 
 class PuzzleListActivity : AppCompatActivity(), PuzzleListAdapter.ClickListener {
@@ -48,7 +49,8 @@ class PuzzleListActivity : AppCompatActivity(), PuzzleListAdapter.ClickListener 
   }
 
   override fun clickedItem(puzzleModel: PuzzleModel) {
-    val intent = Intent(this, BoardActivity::class.java)
+    //val intent = Intent(this, BoardActivity::class.java)
+    val intent = Intent(this, BoardComposeActivity::class.java)
     intent.putExtra("fen", puzzleModel.fen)
     startActivity(intent)
   }
