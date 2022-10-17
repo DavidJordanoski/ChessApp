@@ -9,11 +9,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.fict.chesspuzzle.models.PuzzleModel
 
 
-class PuzzleListAdapter(clickListener: ClickListener) : RecyclerView.Adapter<PuzzleListAdapter.MyViewHolder>() {
+class PuzzleListAdapter(private var clickListener: ClickListener) :
+  RecyclerView.Adapter<PuzzleListAdapter.MyViewHolder>() {
 
   private var puzzlesList: List<PuzzleModel> = arrayListOf()
   private lateinit var context: Context
-  private var clickListener: ClickListener = clickListener
 
   fun setData(puzzleModel: List<PuzzleModel>) {
     this.puzzlesList = puzzleModel
@@ -26,9 +26,9 @@ class PuzzleListAdapter(clickListener: ClickListener) : RecyclerView.Adapter<Puz
   }
 
   override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-    var puzzleListModel = puzzlesList.get(position)
-    var description = puzzleListModel.description
-    var fen = puzzleListModel.fen
+    val puzzleListModel = puzzlesList[position]
+    val description = puzzleListModel.description
+    val fen = puzzleListModel.fen
 
     holder.description.text = description
     holder.fen.text = fen
@@ -47,8 +47,8 @@ class PuzzleListAdapter(clickListener: ClickListener) : RecyclerView.Adapter<Puz
   }
 
   class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-    val description = itemView.findViewById<TextView>(R.id.descriptionTextView)
-    val fen = itemView.findViewById<TextView>(R.id.fenTextView)
+    val description: TextView = itemView.findViewById(R.id.descriptionTextView)
+    val fen: TextView = itemView.findViewById(R.id.fenTextView)
   }
 
 }
