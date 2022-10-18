@@ -1,6 +1,8 @@
 package com.fict.chesspuzzle.models
 
-class SquareModel(val x: Int, val y :Int, val type: String) {}
+class SquareModel(val x: Int, val y :Int, val type: String) {
+
+}
 //0,0,R 0,0,r
 
 //isEmpty

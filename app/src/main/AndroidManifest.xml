@@ -20,7 +20,7 @@
             android:exported="false">
         </activity>
         <activity
-            android:name=".PuzzleListActivity"
+            android:name=".compose.BoardComposeActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -29,12 +29,12 @@
             </intent-filter>
         </activity>
 
-        <activity
-          android:name=".compose.BoardComposeActivity"
-          android:exported="true"
-          android:label="@string/app_name"
-          android:theme="@style/Theme.MyApplication">
-        </activity>
+<!--        <activity-->
+<!--          android:name=".compose.BoardComposeActivity"-->
+<!--          android:exported="true"-->
+<!--          android:label="@string/app_name"-->
+<!--          android:theme="@style/Theme.MyApplication">-->
+<!--        </activity>-->
 
     </application>
 

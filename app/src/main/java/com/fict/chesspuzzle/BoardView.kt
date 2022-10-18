@@ -75,7 +75,9 @@ class BoardView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
         fromRow = 7 - ((event.y - originY) / cellSide).toInt()
         val fileX = File.allFiles[fromCol]
         val rankY = Rank.allRanks[fromRow]
-        sqFrom = Square.encode(rankY, fileX)
+        if (File.NONE != fileX && Rank.NONE != rankY) {
+          sqFrom = Square.encode(rankY, fileX)
+        }
       }
 
       MotionEvent.ACTION_UP -> {
@@ -83,8 +85,10 @@ class BoardView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
         val toRow = 7 - ((event.y - originY) / cellSide).toInt()
         val fileX = File.allFiles[toCol]
         val rankY = Rank.allRanks[toRow]
-        sq = Square.encode(rankY, fileX)
-        board.doMove(Move(sqFrom, sq))
+        if (File.NONE != fileX && Rank.NONE != rankY) {
+          sq = Square.encode(rankY, fileX)
+          board.doMove(Move(sqFrom, sq))
+        }
         println(board)
       }
     }

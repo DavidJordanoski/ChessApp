@@ -5,7 +5,9 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.*
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Surface
+import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -13,9 +15,14 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.core.util.rangeTo
 import com.fict.chesspuzzle.R
 import com.fict.chesspuzzle.models.BoardModel
 import com.fict.myapplication.ui.theme.MyApplicationTheme
+import com.github.bhlangonijr.chesslib.File
+import com.github.bhlangonijr.chesslib.Rank
+import com.github.bhlangonijr.chesslib.Square
+import com.github.bhlangonijr.chesslib.move.Move
 
 //there should be no rules in this class
 //only draw what is available in board model
@@ -37,6 +44,8 @@ class BoardComposeActivity : ComponentActivity() {
 )
 @Composable
 fun Board(board: MutableState<BoardModel> = mutableStateOf(BoardModel())) {
+  val boardFromLib = com.github.bhlangonijr.chesslib.Board()
+  val boardModel: BoardModel = BoardModel()
   val darkSquare = Color(0xFF779556)
   val lightSquare = Color(0xFFEBECD0)
 
@@ -54,11 +63,11 @@ fun Board(board: MutableState<BoardModel> = mutableStateOf(BoardModel())) {
         .border(BorderStroke(width = 2.dp, color = Color.Black))
         .padding(2.dp)
     ) {
-      for (i in 0 until 8) {
+      for (j in 7 downTo 0) {
         Row {
-          for (j in 0 until 8) {
+          for (i in 0 until 8) {
             //board.isLightSquare
-            val isLightSquare = i % 2 == j % 2
+            val isLightSquare = j % 2 == i % 2
             val squareColor = if (isLightSquare) lightSquare else darkSquare
 
             //should be part of board-state
@@ -68,7 +77,12 @@ fun Board(board: MutableState<BoardModel> = mutableStateOf(BoardModel())) {
             Box(modifier = Modifier
               .weight(1f)
               .aspectRatio(1f)
-              .border(BorderStroke(width = 2.dp, color = if (selected) Color.Red else Color.Transparent))
+              .border(
+                BorderStroke(
+                  width = 2.dp,
+                  color = if (selected) Color.Red else Color.Transparent
+                )
+              )
               .background(squareColor)
               .clickable {
                 selected = !selected
@@ -76,11 +90,7 @@ fun Board(board: MutableState<BoardModel> = mutableStateOf(BoardModel())) {
               }) {
               Text(text = "${i},${j}")
 
-              if(i==3) {
-                Image(
-                  painter = painterResource(id = R.drawable.white_king), contentDescription = null
-                )
-              }
+              boardModel.drawPieces(i, j)
 
               //check the state for the item at x,y for
               //isEmpty
@@ -96,7 +106,6 @@ fun Board(board: MutableState<BoardModel> = mutableStateOf(BoardModel())) {
 //              }
 
 
-
               //take the items from the model and draw tem
               //if(white or black peace)
 //              if(board.get(x,y).isRook()){
@@ -106,9 +115,10 @@ fun Board(board: MutableState<BoardModel> = mutableStateOf(BoardModel())) {
 //              }
 
             }
+            }
           }
         }
       }
     }
   }
-}
+
