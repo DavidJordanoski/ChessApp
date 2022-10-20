@@ -18,6 +18,7 @@ import androidx.compose.ui.unit.dp
 import androidx.core.util.rangeTo
 import com.fict.chesspuzzle.R
 import com.fict.chesspuzzle.models.BoardModel
+import com.fict.chesspuzzle.models.SquareModel
 import com.fict.myapplication.ui.theme.MyApplicationTheme
 import com.github.bhlangonijr.chesslib.File
 import com.github.bhlangonijr.chesslib.Rank
@@ -45,6 +46,7 @@ class BoardComposeActivity : ComponentActivity() {
 @Composable
 fun Board(board: MutableState<BoardModel> = mutableStateOf(BoardModel())) {
   val boardFromLib = com.github.bhlangonijr.chesslib.Board()
+  val squareModel: SquareModel
   val boardModel: BoardModel = BoardModel()
   val darkSquare = Color(0xFF779556)
   val lightSquare = Color(0xFFEBECD0)
@@ -89,8 +91,13 @@ fun Board(board: MutableState<BoardModel> = mutableStateOf(BoardModel())) {
                 //board.set(i,j - x,y) = selected
               }) {
               Text(text = "${i},${j}")
-
+              //boardModel.fromSquareToCoordinate(Square.A5)
               boardModel.drawPieces(i, j)
+              boardModel.isSelected(i,j,selected)
+              //boardModel.getItemAt(1,1)
+              //boardModel.isRook(7,7)
+              //boardModel.isWhite(4,3) // not working
+              //boardModel.isEmpty(0,1)
 
               //check the state for the item at x,y for
               //isEmpty
@@ -113,8 +120,7 @@ fun Board(board: MutableState<BoardModel> = mutableStateOf(BoardModel())) {
 //                  painter = painterResource(id = R.drawable.white_rook), contentDescription = null
 //                )
 //              }
-
-            }
+             }
             }
           }
         }

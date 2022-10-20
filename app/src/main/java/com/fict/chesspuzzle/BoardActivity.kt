@@ -16,7 +16,7 @@ class BoardActivity : AppCompatActivity() {
       val piece = board.getPiece(squares)
     }
     val boardPositions = BoardPositions()
-    boardPositions.FromSquareToCoordinate("A5")
+    boardPositions.FromSquareToCoordinate(Square.A5)
     boardPositions.FromCoordinateToSquare(1,1)
   }
 

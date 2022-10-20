@@ -8,10 +8,10 @@ public class BoardPositions {
     int x;
     int y;
 
-    void FromSquareToCoordinate(String str) {
-        x = str.charAt(0) - 'A';
-        y = str.charAt(1) - '1';
-        System.out.println("You printed " + x + ", " + y);
+    void FromSquareToCoordinate(Square square) {
+        File file = square.getFile();
+        Rank rank = square.getRank();
+        System.out.println("You printed " + file + ", " + rank);
     }
 
     void FromCoordinateToSquare(int x, int y) {
