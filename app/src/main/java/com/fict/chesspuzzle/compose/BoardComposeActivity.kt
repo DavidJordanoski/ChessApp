@@ -47,17 +47,17 @@ class BoardComposeActivity : ComponentActivity() {
           val sq = Square.encode(row, col)
           val piece = board.getPiece(sq)
 
-          val sqModel00 = SquareModel(0, 0, "K", false, false);
+          //val sqModel00 = SquareModel(0, 0, "K", false, false);
 
           //treba da se popolni BoardModel()
 
           //val activeBoard = mutableStateOf(BoardModel())
           var activeBoard = BoardModel()
-          activeBoard.add(sqModel00) //ova ke imame za site 64 polinja
+          //activeBoard.add(sqModel00) //ova ke imame za site 64 polinja
 
 
           //activeBoard
-          //Board()
+          RefreshableBoard()
         }
       }
     }
@@ -68,9 +68,9 @@ class BoardComposeActivity : ComponentActivity() {
 @Composable
 fun RefreshableBoard() {
 
-//  var name by remember { mutableStateOf("") }
-//
-//  var activeBoard by remember { MutableState( BoardModel()) }
+  //  var name by remember { mutableStateOf("") }
+  //
+  //  var activeBoard by remember { MutableState( BoardModel()) }
 
   var activeBoard = BoardModel()
   Board(activeBoard, onBoardUpdate = { activeBoard = it })
@@ -97,8 +97,8 @@ fun Board(board: BoardModel, onBoardUpdate: (BoardModel) -> Unit) {
       for (y in 0..7) {
         Row {
           for (x in 0..7) { //board.isLightSquare
-            val isLightSquare = x % 2 == y % 2
-            val squareColor = if (isLightSquare) lightSquare else darkSquare
+
+            val squareColor = if (board.get(x, y).isLightSquare) lightSquare else darkSquare
 
             //should be part of board-state
             var selected by remember { mutableStateOf(false) }

@@ -17,8 +17,8 @@ open class BoardModel { //8x8 = 64
   init {
     for (y in 0..7) {
       for (x in 0..7) {
-        val s = SquareModel(x, y, "", false, false)
         val isLightSquare = x % 2 == y % 2
+        val s = SquareModel(x, y, "", false, false, isLightSquare)
         squares.add(s)
       }
     }
@@ -48,6 +48,13 @@ open class BoardModel { //8x8 = 64
 
   //tuka ke bidi i  conversion of "a8" vo (0,0)
 
+  fun get(x: Int, y: Int): SquareModel { //todo add checks for index out of bounds
+    return squares.get(y * 8 + x)
+  }
+
+  fun get(index: Int): SquareModel { //todo add checks for index out of bounds
+    return squares.get(index)
+  }
 
   fun add(squareModel: SquareModel) {
     squares.add(squareModel)

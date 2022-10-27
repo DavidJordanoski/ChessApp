@@ -13,6 +13,7 @@ class SquareModel(
   val figureType: String, //this square contains figure of type: p r n b q k, P R N B Q K, or "" for empty
   val isSelected: Boolean, //this square is selected
   val isValidMove: Boolean, //this square is valid move
+  val isLightSquare: Boolean //white/black background of the square
 ) {
 
   fun isEmpty(): Boolean {
