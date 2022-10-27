@@ -1,22 +1,10 @@
 package com.fict.chesspuzzle.models
 
-import androidx.annotation.DrawableRes
-import androidx.compose.foundation.Image
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.res.painterResource
-import com.fict.chesspuzzle.R
-import com.github.bhlangonijr.chesslib.*
-import com.github.bhlangonijr.chesslib.move.Move
-import com.github.bhlangonijr.chesslib.move.MoveGenerator
-
 
 /**
  * Pure business logic of our model.
  */
-open class BoardModel {
-  val board = Board() //NO NO  NO get it out
-
-  //8x8 = 64
+open class BoardModel { //8x8 = 64
 
   // 0 1 2 3 4 5 6 7
   // 8 9 10...
@@ -24,15 +12,26 @@ open class BoardModel {
 
   // 0 1 2 3.......... 63
 
-  val figures: MutableList<SquareModel> = mutableListOf() //8x8 ova ke se polni od FEN
+  private val squares: MutableList<SquareModel> = mutableListOf() //8x8
+
+  init {
+    for (y in 0..7) {
+      for (x in 0..7) {
+        val s = SquareModel(x, y, "", false, false)
+        val isLightSquare = x % 2 == y % 2
+        squares.add(s)
+      }
+    }
+  }
+
 
   //0-7 ili 1-8
 
-//    fun getItemAt(x: Int, y :Int): String {
-//      return "R" //"r"
-//     y*8+x +
-//     (y-1)*8+(x-1)
-//    }
+  //    fun getItemAt(x: Int, y :Int): String {
+  //      return "R" //"r"
+  //     y*8+x +
+  //     (y-1)*8+(x-1)
+  //    }
 
   //  fun isRook(x: Int, y :Int) {
   //use getItemAt
@@ -51,6 +50,6 @@ open class BoardModel {
 
 
   fun add(squareModel: SquareModel) {
-    figures.add(squareModel)
+    squares.add(squareModel)
   }
 }
