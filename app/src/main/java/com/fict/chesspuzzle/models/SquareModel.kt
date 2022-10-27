@@ -21,19 +21,8 @@ class SquareModel(
     }
     return true
   }
-
-
-  //NO NO NO
-  //    fun isSelected(x: Int,y: Int,selected: Boolean){
-  //        if (selected){
-  //            val col = File.allFiles[x]
-  //            val row = Rank.allRanks[y]
-  //            val sq = Square.encode(row, col)
-  //            val piece = board.getPiece(sq)
-  //            println(piece.fenSymbol)
-  //        }
-  //    }
-} //0,0,R 0,0,r
+}
+//0,0,R 0,0,r
 
 //field is valid move
 //isValid move
