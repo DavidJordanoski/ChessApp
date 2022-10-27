@@ -124,6 +124,13 @@ fun Board(
                 if (board.isSomeFieldSelectedAsFrom()) { //znaci odredeno pole e selektirano, sega treba da se napravi destination
                   //toa sto e selectirano e from, ova novoto e destination
                   board.get(x, y).isSelectedTo = !board.get(x, y).isSelectedTo
+
+                  //ovde e mrdanjeto na figurata
+                  //tuka treba da se napravi
+                  //prefrluvanje na vrednosta na board.get(fromX, fromY).figureType
+                  //vo board(toX, toY), sto prakticno ke bidat x i y (za to)
+                  //no za fromX, fromY treba da gi zemite za poleto sto ima isSelectedFrom
+                  //vidi getSelectedFromX
                 } else {
                   board.get(x, y).isSelectedFrom = !board.get(x, y).isSelectedFrom
                 }

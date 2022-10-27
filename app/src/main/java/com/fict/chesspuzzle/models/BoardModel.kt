@@ -86,4 +86,16 @@ open class BoardModel { //8x8 = 64
       squares.get(i).isSelectedTo = false
     }
   }
+
+  //todo
+  fun getSelectedFromX(): Int {
+    for (x in 0..7) {
+      for (y in 0..7) {
+        if (squares.get(y * 8 + x).isSelectedFrom) {
+          return x
+        }
+      }
+    }
+    return -1 //ili exeption ili null zavisi kakva implementacija ke sakate
+  }
 }
