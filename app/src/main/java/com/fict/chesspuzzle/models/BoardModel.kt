@@ -18,7 +18,7 @@ open class BoardModel { //8x8 = 64
     for (y in 0..7) {
       for (x in 0..7) {
         val isLightSquare = x % 2 == y % 2
-        val s = SquareModel(x, y, "", false, false, isLightSquare)
+        val s = SquareModel(x, y, "", false, false, false, isLightSquare)
         squares.add(s)
       }
     }
@@ -58,5 +58,32 @@ open class BoardModel { //8x8 = 64
 
   fun add(squareModel: SquareModel) {
     squares.add(squareModel)
+  }
+
+  //todo give better naming to the methods below
+
+  fun isSomeFieldSelectedAsFrom(): Boolean {
+    for (i in 0..(squares.size - 1)) {
+      if (squares.get(i).isSelectedFrom) {
+        return true
+      }
+    }
+    return false
+  }
+
+  fun isSomeFieldSelectedAsTo(): Boolean {
+    for (i in 0..(squares.size - 1)) {
+      if (squares.get(i).isSelectedTo) {
+        return true
+      }
+    }
+    return false
+  }
+
+  fun deselectAll() {
+    for (i in 0..(squares.size - 1)) {
+      squares.get(i).isSelectedFrom = false
+      squares.get(i).isSelectedTo = false
+    }
   }
 }

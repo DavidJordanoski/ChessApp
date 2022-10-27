@@ -9,10 +9,12 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.MaterialTheme
+import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
@@ -22,6 +24,7 @@ import com.fict.myapplication.ui.theme.MyApplicationTheme
 import com.github.bhlangonijr.chesslib.File
 import com.github.bhlangonijr.chesslib.Rank
 import com.github.bhlangonijr.chesslib.Square
+import java.util.*
 
 //there should be no rules in this class
 //only draw what is available in board model
@@ -51,7 +54,8 @@ class BoardComposeActivity : ComponentActivity() {
           //treba da se popolni BoardModel()
 
           //val activeBoard = mutableStateOf(BoardModel())
-          var activeBoard = BoardModel() //activeBoard.add(sqModel00) //ova ke imame za site 64 polinja
+          //var activeBoard = mutableStateOf(BoardModel()) //activeBoard.add(sqModel00) //ova ke imame za site 64
+          // polinja
 
           RefreshableBoard()
         }
@@ -63,25 +67,28 @@ class BoardComposeActivity : ComponentActivity() {
 @Preview(device = Devices.DEFAULT, showSystemUi = true)
 @Composable
 fun RefreshableBoard() {
+  var name by remember { mutableStateOf("") }
 
-  //  var name by remember { mutableStateOf("") }
-  //
-  //  var activeBoard by remember { MutableState( BoardModel()) }
+  var activeBoard by remember { mutableStateOf(BoardModel()) }
 
-  var activeBoard = BoardModel()
-  Board(activeBoard, onBoardUpdate = { activeBoard = it })
+  Board(name = name, activeBoard, onNameChange = {
+    name = it
+  }, {
+          activeBoard = it
+        })
 }
 
-
 @Composable
-fun Board(board: BoardModel, onBoardUpdate: (BoardModel) -> Unit) {
-
-
+fun Board(
+  name: String, board: BoardModel, onNameChange: (String) -> Unit, onBoardUpdate: (BoardModel) -> Unit
+) {
   Box(
     modifier = Modifier
       .fillMaxSize()
       .background(Color.LightGray)
   ) {
+
+
     Column(
       modifier = Modifier
         .fillMaxWidth()
@@ -93,9 +100,8 @@ fun Board(board: BoardModel, onBoardUpdate: (BoardModel) -> Unit) {
         Row {
           for (x in 0..7) { //board.isLightSquare
 
-
             //should be part of board-state
-            var selected by remember { mutableStateOf(false) }
+            //var selected by remember { mutableStateOf(false) }
 
             //one square item
             Box(modifier = Modifier
@@ -103,44 +109,51 @@ fun Board(board: BoardModel, onBoardUpdate: (BoardModel) -> Unit) {
               .aspectRatio(1f)
               .border(
                 BorderStroke(
-                  width = 2.dp, color = if (selected) Color.Red else Color.Transparent
+                  width = 2.dp, color = getSelectionSquareColor(board, x, y)
                 )
               )
               .background(getBackgroundSquareColor(board.get(x, y).isLightSquare))
-              .clickable {
-                selected = !selected //board.set(i,j - x,y) = selected
+              .clickable { //selected = !selected //board.set(i,j - x,y) = selected
                 //board.setSelectedField(x,y)
                 //treba da se napraj pak trigger za valid fields preku usecase
+
+                if(board.isSomeFieldSelectedAsTo()){
+                  board.deselectAll()
+                }
+
+                if (board.isSomeFieldSelectedAsFrom()) { //znaci odredeno pole e selektirano, sega treba da se napravi destination
+                  //toa sto e selectirano e from, ova novoto e destination
+                  board.get(x, y).isSelectedTo = !board.get(x, y).isSelectedTo
+                } else {
+                  board.get(x, y).isSelectedFrom = !board.get(x, y).isSelectedFrom
+                }
+
+                onBoardUpdate(board)
+                onNameChange("" + Date().time) //ugly hack
               }) {
               Text(text = "${x},${y}") //boardModel.fromSquareToCoordinate(Square.A5)
 
-              //check the state for the item at x,y for
-              //isEmpty
-              //isSelected
-              //field is valid move
-              //isValid move
-              //and draw it on the screen
-
-              //              if(board.getItem(x,y).isValidMove){
-              //                Image(
-              //                  painter = painterResource(id = R.drawable.valid_move), contentDescription = null
-              //                    )
-              //              }
-
-
-              //take the items from the model and draw tem
-              //if(white or black peace)
-              //              if(board.get(x,y).isRook()){
-              //                Image(
-              //                  painter = painterResource(id = R.drawable.white_rook), contentDescription = null
-              //                )
-              //              }
             }
           }
         }
       }
+    } //ugly hack for refresh
+    Column(modifier = Modifier.alpha(0f)) {
+      OutlinedTextField(value = "name", onValueChange = onNameChange, label = { Text("Name") })
     }
   }
+}
+
+
+fun getSelectionSquareColor(board: BoardModel, x: Int, y: Int): Color {
+  if (board.get(x, y).isSelectedFrom) {
+    return Color.Red
+  } else {
+    if (board.get(x, y).isSelectedTo) {
+      return Color.Green
+    }
+  }
+  return Color.Transparent
 }
 
 fun getBackgroundSquareColor(isLightSquare: Boolean): Color {
@@ -148,3 +161,26 @@ fun getBackgroundSquareColor(isLightSquare: Boolean): Color {
   val lightSquare = Color(0xFFEBECD0)
   return if (isLightSquare) lightSquare else darkSquare
 }
+
+
+//check the state for the item at x,y for
+//isEmpty
+//isSelected
+//field is valid move
+//isValid move
+//and draw it on the screen
+
+//              if(board.getItem(x,y).isValidMove){
+//                Image(
+//                  painter = painterResource(id = R.drawable.valid_move), contentDescription = null
+//                    )
+//              }
+
+
+//take the items from the model and draw tem
+//if(white or black peace)
+//              if(board.get(x,y).isRook()){
+//                Image(
+//                  painter = painterResource(id = R.drawable.white_rook), contentDescription = null
+//                )
+//              }
