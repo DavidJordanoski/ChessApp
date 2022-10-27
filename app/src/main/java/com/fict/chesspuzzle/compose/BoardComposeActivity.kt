@@ -18,7 +18,6 @@ import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.fict.chesspuzzle.models.BoardModel
-import com.fict.chesspuzzle.models.SquareModel
 import com.fict.myapplication.ui.theme.MyApplicationTheme
 import com.github.bhlangonijr.chesslib.File
 import com.github.bhlangonijr.chesslib.Rank
@@ -52,11 +51,8 @@ class BoardComposeActivity : ComponentActivity() {
           //treba da se popolni BoardModel()
 
           //val activeBoard = mutableStateOf(BoardModel())
-          var activeBoard = BoardModel()
-          //activeBoard.add(sqModel00) //ova ke imame za site 64 polinja
+          var activeBoard = BoardModel() //activeBoard.add(sqModel00) //ova ke imame za site 64 polinja
 
-
-          //activeBoard
           RefreshableBoard()
         }
       }
@@ -79,8 +75,7 @@ fun RefreshableBoard() {
 
 @Composable
 fun Board(board: BoardModel, onBoardUpdate: (BoardModel) -> Unit) {
-  val darkSquare = Color(0xFF779556)
-  val lightSquare = Color(0xFFEBECD0)
+
 
   Box(
     modifier = Modifier
@@ -98,7 +93,6 @@ fun Board(board: BoardModel, onBoardUpdate: (BoardModel) -> Unit) {
         Row {
           for (x in 0..7) { //board.isLightSquare
 
-            val squareColor = if (board.get(x, y).isLightSquare) lightSquare else darkSquare
 
             //should be part of board-state
             var selected by remember { mutableStateOf(false) }
@@ -112,7 +106,7 @@ fun Board(board: BoardModel, onBoardUpdate: (BoardModel) -> Unit) {
                   width = 2.dp, color = if (selected) Color.Red else Color.Transparent
                 )
               )
-              .background(squareColor)
+              .background(getBackgroundSquareColor(board.get(x, y).isLightSquare))
               .clickable {
                 selected = !selected //board.set(i,j - x,y) = selected
                 //board.setSelectedField(x,y)
@@ -149,3 +143,8 @@ fun Board(board: BoardModel, onBoardUpdate: (BoardModel) -> Unit) {
   }
 }
 
+fun getBackgroundSquareColor(isLightSquare: Boolean): Color {
+  val darkSquare = Color(0xFF779556)
+  val lightSquare = Color(0xFFEBECD0)
+  return if (isLightSquare) lightSquare else darkSquare
+}
