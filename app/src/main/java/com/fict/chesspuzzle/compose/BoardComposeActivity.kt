@@ -57,18 +57,28 @@ class BoardComposeActivity : ComponentActivity() {
 
 
           //activeBoard
-          Board()
+          //Board()
         }
       }
     }
   }
 }
 
-@Preview(
-  device = Devices.DEFAULT, showSystemUi = true
-)
+@Preview(device = Devices.DEFAULT, showSystemUi = true)
 @Composable
-fun Board(board: MutableState<BoardModel> = mutableStateOf(BoardModel())) {
+fun RefreshableBoard() {
+
+//  var name by remember { mutableStateOf("") }
+//
+//  var activeBoard by remember { MutableState( BoardModel()) }
+
+  var activeBoard = BoardModel()
+  Board(activeBoard, onBoardUpdate = { activeBoard = it })
+}
+
+
+@Composable
+fun Board(board: BoardModel, onBoardUpdate: (BoardModel) -> Unit) {
   val darkSquare = Color(0xFF779556)
   val lightSquare = Color(0xFFEBECD0)
 
@@ -77,8 +87,6 @@ fun Board(board: MutableState<BoardModel> = mutableStateOf(BoardModel())) {
       .fillMaxSize()
       .background(Color.LightGray)
   ) {
-
-    //modifier = Modifier.padding(16.dp)
     Column(
       modifier = Modifier
         .fillMaxWidth()
@@ -86,10 +94,10 @@ fun Board(board: MutableState<BoardModel> = mutableStateOf(BoardModel())) {
         .border(BorderStroke(width = 2.dp, color = Color.Black))
         .padding(2.dp)
     ) {
-      for (j in 7 downTo 0) {
+      for (y in 0..7) {
         Row {
-          for (i in 0 until 8) { //board.isLightSquare
-            val isLightSquare = j % 2 == i % 2
+          for (x in 0..7) { //board.isLightSquare
+            val isLightSquare = x % 2 == y % 2
             val squareColor = if (isLightSquare) lightSquare else darkSquare
 
             //should be part of board-state
@@ -110,7 +118,7 @@ fun Board(board: MutableState<BoardModel> = mutableStateOf(BoardModel())) {
                 //board.setSelectedField(x,y)
                 //treba da se napraj pak trigger za valid fields preku usecase
               }) {
-              Text(text = "${i},${j}") //boardModel.fromSquareToCoordinate(Square.A5)
+              Text(text = "${x},${y}") //boardModel.fromSquareToCoordinate(Square.A5)
 
               //check the state for the item at x,y for
               //isEmpty
