@@ -1,5 +1,10 @@
 package com.fict.chesspuzzle.models
 
+import android.R.array
+
+
+
+
 
 /**
  * Pure business logic of our model.
@@ -33,10 +38,12 @@ open class BoardModel { //8x8 = 64
   //     (y-1)*8+(x-1)
   //    }
 
-  //  fun isRook(x: Int, y :Int) {
-  //use getItemAt
-  //.equals(R or r) return true
-  //  }
+    fun isRook(x: Int, y :Int): String {
+      if (get(x, y)?.equals("R") == true){
+        return "R"
+      }
+      return ""
+    }
 
   //  fun isWhite(x: Int, y :Int) {
   //      getItemAt is capital letter or small?
@@ -48,12 +55,21 @@ open class BoardModel { //8x8 = 64
 
   //tuka ke bidi i  conversion of "a8" vo (0,0)
 
-  fun get(x: Int, y: Int): SquareModel { //todo add checks for index out of bounds
-    return squares.get(y * 8 + x)
+  fun get(x: Int, y: Int): SquareModel? { //todo add checks for index out of bounds
+    if(checkForIndexOutOfBounds(y * 8 + x)){
+      return squares[y * 8 + x]
+    }
+    return null
   }
 
-  fun get(index: Int): SquareModel { //todo add checks for index out of bounds
-    return squares.get(index)
+  fun get(index: Int): SquareModel? { //todo add checks for index out of bounds
+    if(checkForIndexOutOfBounds(index)){
+      return squares[index]
+    }
+    return null
+  }
+  private fun checkForIndexOutOfBounds(index: Int): Boolean{
+    return (index >= 0 && index < squares.size)
   }
 
   fun add(squareModel: SquareModel) {
@@ -91,7 +107,7 @@ open class BoardModel { //8x8 = 64
   fun getSelectedFromX(): Int {
     for (x in 0..7) {
       for (y in 0..7) {
-        if (squares.get(y * 8 + x).isSelectedFrom) {
+        if (squares[y * 8 + x].isSelectedFrom) {
           return x
         }
       }

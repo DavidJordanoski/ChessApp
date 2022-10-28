@@ -11,7 +11,7 @@ class BoardActivity : AppCompatActivity() {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.chess_board_activity)
     val fen = intent.getStringExtra("fen")
-//    board.loadFromFen("$fen w")
+    board.loadFromFen("$fen w")
     for (squares in Square.values()) {
       val piece = board.getPiece(squares)
     }

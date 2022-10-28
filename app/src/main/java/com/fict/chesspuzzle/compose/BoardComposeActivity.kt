@@ -20,6 +20,7 @@ import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.fict.chesspuzzle.models.BoardModel
+import com.fict.chesspuzzle.usecase.LibraryLogic
 import com.fict.myapplication.ui.theme.MyApplicationTheme
 import com.github.bhlangonijr.chesslib.File
 import com.github.bhlangonijr.chesslib.Rank
@@ -36,6 +37,11 @@ class BoardComposeActivity : ComponentActivity() {
         Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colors.background) { //Board()
           //convert the FEN into our Board model
           //kako ke go konvertirame? pa zasega ke koristime biblioteka...
+          val libraryLogic = LibraryLogic()
+
+          val fen = intent.getStringExtra("fen")
+          libraryLogic.loadFenCode(libraryLogic.board.fen)
+
 
           //Vo druga metoda, mozi da ja vikame usecase
           val board = com.github.bhlangonijr.chesslib.Board() //toj boadr ke go incijalizirame so FEN-ot
@@ -112,33 +118,36 @@ fun Board(
                   width = 2.dp, color = getSelectionSquareColor(board, x, y)
                 )
               )
-              .background(getBackgroundSquareColor(board.get(x, y).isLightSquare))
+              .background(getBackgroundSquareColor(board.get(x, y)?.isLightSquare!!))
               .clickable { //selected = !selected //board.set(i,j - x,y) = selected
                 //board.setSelectedField(x,y)
                 //treba da se napraj pak trigger za valid fields preku usecase
 
-                if(board.isSomeFieldSelectedAsTo()){
+                if (board.isSomeFieldSelectedAsTo()) {
                   board.deselectAll()
                 }
 
                 if (board.isSomeFieldSelectedAsFrom()) { //znaci odredeno pole e selektirano, sega treba da se napravi destination
                   //toa sto e selectirano e from, ova novoto e destination
-                  board.get(x, y).isSelectedTo = !board.get(x, y).isSelectedTo
+                  board.get(x, y)?.isSelectedTo = !board.get(x, y)?.isSelectedTo!!
 
                   //ovde e mrdanjeto na figurata
                   //tuka treba da se napravi
                   //prefrluvanje na vrednosta na board.get(fromX, fromY).figureType
+
                   //vo board(toX, toY), sto prakticno ke bidat x i y (za to)
                   //no za fromX, fromY treba da gi zemite za poleto sto ima isSelectedFrom
                   //vidi getSelectedFromX
                 } else {
-                  board.get(x, y).isSelectedFrom = !board.get(x, y).isSelectedFrom
+                  board.get(x, y)?.isSelectedFrom = !board.get(x, y)?.isSelectedFrom!!
                 }
 
                 onBoardUpdate(board)
                 onNameChange("" + Date().time) //ugly hack
               }) {
-              Text(text = "${x},${y}") //boardModel.fromSquareToCoordinate(Square.A5)
+              Text(text = "${x},${y}")
+
+              println("Selected is: "+board.get(7,7)?.isSelectedFrom)
 
             }
           }
@@ -153,10 +162,10 @@ fun Board(
 
 
 fun getSelectionSquareColor(board: BoardModel, x: Int, y: Int): Color {
-  if (board.get(x, y).isSelectedFrom) {
+  if (board.get(x, y)?.isSelectedFrom!!) {
     return Color.Red
   } else {
-    if (board.get(x, y).isSelectedTo) {
+    if (board.get(x, y)?.isSelectedTo!!) {
       return Color.Green
     }
   }
