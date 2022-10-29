@@ -1,4 +1,4 @@
-package com.fict.chesspuzzle
+package com.fict.chesspuzzle.retrofit
 
 import com.fict.chesspuzzle.models.PuzzleModel
 import retrofit2.Call

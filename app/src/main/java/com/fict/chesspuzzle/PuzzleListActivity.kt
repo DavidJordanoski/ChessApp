@@ -8,6 +8,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.fict.chesspuzzle.compose.BoardComposeActivity
 import com.fict.chesspuzzle.models.PuzzleModel
+import com.fict.chesspuzzle.retrofit.Api
+import com.fict.chesspuzzle.retrofit.RetrofitClient
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
