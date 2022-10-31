@@ -38,12 +38,7 @@ open class BoardModel { //8x8 = 64
   //     (y-1)*8+(x-1)
   //    }
 
-    fun isRook(x: Int, y :Int): String {
-      if (get(x, y)?.equals("R") == true){
-        return "R"
-      }
-      return ""
-    }
+
 
   //  fun isWhite(x: Int, y :Int) {
   //      getItemAt is capital letter or small?
@@ -55,19 +50,22 @@ open class BoardModel { //8x8 = 64
 
   //tuka ke bidi i  conversion of "a8" vo (0,0)
 
-  fun get(x: Int, y: Int): SquareModel? { //todo add checks for index out of bounds
+  fun get(x: Int, y: Int): SquareModel { //todo add checks for index out of bounds
     if(checkForIndexOutOfBounds(y * 8 + x)){
       return squares[y * 8 + x]
     }
-    return null
+    return getInitSquareModel()
   }
 
-  fun get(index: Int): SquareModel? { //todo add checks for index out of bounds
+  fun get(index: Int): SquareModel { //todo add checks for index out of bounds
     if(checkForIndexOutOfBounds(index)){
       return squares[index]
     }
-    return null
+    return getInitSquareModel()
   }
+
+
+
   private fun checkForIndexOutOfBounds(index: Int): Boolean{
     return (index >= 0 && index < squares.size)
   }
@@ -113,5 +111,17 @@ open class BoardModel { //8x8 = 64
       }
     }
     return -1 //ili exeption ili null zavisi kakva implementacija ke sakate
+  }
+
+  fun isWhiteRook(x: Int, y: Int) : Boolean {
+    return get(x,y).isWhiteRook()
+  }
+
+  fun isRook(x: Int, y: Int) : Boolean {
+    return get(x,y).isWhiteRook() || get(x,y).isBlackRook()
+  }
+
+  fun getInitSquareModel() : SquareModel {
+    return SquareModel(0,0,"",false,false,false,false)
   }
 }
