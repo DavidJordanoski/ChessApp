@@ -5,7 +5,6 @@ import androidx.annotation.DrawableRes
 import androidx.compose.foundation.Image
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.painterResource
-import com.fict.chesspuzzle.Model
 import com.fict.chesspuzzle.R
 import com.github.bhlangonijr.chesslib.*
 
