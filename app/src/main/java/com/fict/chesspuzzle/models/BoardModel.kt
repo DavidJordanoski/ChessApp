@@ -117,9 +117,76 @@ open class BoardModel { //8x8 = 64
     return get(x,y).isWhiteRook()
   }
 
+  fun isBlackRook(x: Int, y: Int) : Boolean {
+    return get(x,y).isBlackRook()
+  }
+
+  fun isWhiteKnight(x: Int, y: Int) : Boolean {
+    return get(x,y).isWhiteKnight()
+  }
+
+  fun isBlackKnight(x: Int, y: Int) : Boolean {
+    return get(x,y).isBlackKnight()
+  }
+
+  fun isWhiteBishop(x: Int, y: Int) : Boolean {
+    return get(x,y).isWhiteBishop()
+  }
+
+  fun isBlackBishop(x: Int, y: Int) : Boolean {
+    return get(x,y).isBlackBishop()
+  }
+
+  fun isWhiteQueen(x: Int, y: Int) : Boolean {
+    return get(x,y).isWhiteQueen()
+  }
+
+  fun isBlackQueen(x: Int, y: Int) : Boolean {
+    return get(x,y).isBlackQueen()
+  }
+
+  fun isWhiteKing(x: Int, y: Int) : Boolean {
+    return get(x,y).isWhiteKing()
+  }
+
+  fun isBlackKing(x: Int, y: Int) : Boolean {
+    return get(x,y).isBlackKing()
+  }
+
+  fun isWhitePawn(x: Int, y: Int) : Boolean {
+    return get(x,y).isWhitePawn()
+  }
+  fun isBlackPawn(x: Int, y: Int) : Boolean {
+    return get(x,y).isBlackPawn()
+  }
+
   fun isRook(x: Int, y: Int) : Boolean {
     return get(x,y).isWhiteRook() || get(x,y).isBlackRook()
   }
+
+  fun isKnight(x: Int, y: Int) : Boolean {
+    return get(x,y).isWhiteKnight() || get(x,y).isBlackKnight()
+  }
+
+  fun isBishop(x: Int, y: Int) : Boolean {
+    return get(x,y).isWhiteBishop() || get(x,y).isBlackBishop()
+  }
+
+  fun isQueen(x: Int, y: Int) : Boolean {
+    return get(x,y).isWhiteQueen() || get(x,y).isBlackQueen()
+  }
+
+  fun isKing(x: Int, y: Int) : Boolean {
+    return get(x,y).isWhiteKing() || get(x,y).isBlackKing()
+  }
+
+  fun isPawn(x: Int, y: Int) : Boolean {
+    return get(x,y).isWhitePawn() || get(x,y).isBlackPawn()
+  }
+
+
+
+
 
   fun getInitSquareModel() : SquareModel {
     return SquareModel(0,0,"",false,false,false,false)

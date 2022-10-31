@@ -31,4 +31,45 @@ class SquareModel(
     return figureType.equals("r")
   }
 
+  fun isWhiteKnight() : Boolean {
+    return figureType.equals("N")
+  }
+
+  fun isBlackKnight() : Boolean {
+    return figureType.equals("n")
+  }
+
+  fun isWhiteBishop() : Boolean {
+    return figureType.equals("B")
+  }
+
+  fun isBlackBishop() : Boolean {
+    return figureType.equals("b")
+  }
+
+  fun isWhiteQueen() : Boolean {
+    return figureType.equals("Q")
+  }
+
+  fun isBlackQueen() : Boolean {
+    return figureType.equals("q")
+  }
+
+  fun isWhiteKing() : Boolean {
+    return figureType.equals("K")
+  }
+
+  fun isBlackKing() : Boolean {
+    return figureType.equals("k")
+  }
+
+  fun isWhitePawn() : Boolean {
+    return figureType.equals("P")
+  }
+
+  fun isBlackPawn() : Boolean {
+    return figureType.equals("p")
+  }
+
+
 }

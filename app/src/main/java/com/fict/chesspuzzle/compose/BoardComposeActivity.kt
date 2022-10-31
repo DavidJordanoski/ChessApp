@@ -145,10 +145,10 @@ fun Board(
                           )
                           .background(
                             getBackgroundSquareColor(
-                              board.get(
-                                x,
-                                y
-                              )?.isLightSquare!!
+                                board.get(
+                                    x,
+                                    y
+                                ).isLightSquare
                             )
                           )
                           .clickable { //selected = !selected //board.set(i,j - x,y) = selected
@@ -161,7 +161,7 @@ fun Board(
 
                             if (board.isSomeFieldSelectedAsFrom()) { //znaci odredeno pole e selektirano, sega treba da se napravi destination
                               //toa sto e selectirano e from, ova novoto e destination
-                              board.get(x, y)?.isSelectedTo = !board.get(x, y)?.isSelectedTo!!
+                              board.get(x, y).isSelectedTo = !board.get(x, y).isSelectedTo
 
                               //ovde e mrdanjeto na figurata
                               //tuka treba da se napravi
@@ -201,10 +201,10 @@ fun Board(
 }
 
 fun getSelectionSquareColor(board: BoardModel, x: Int, y: Int): Color {
-    if (board.get(x, y)?.isSelectedFrom!!) {
+    if (board.get(x, y).isSelectedFrom) {
         return Color.Red
     } else {
-        if (board.get(x, y)?.isSelectedTo!!) {
+        if (board.get(x, y).isSelectedTo) {
             return Color.Green
         }
     }
