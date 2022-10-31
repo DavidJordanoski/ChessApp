@@ -171,8 +171,8 @@ fun Board(
                               //no za fromX, fromY treba da gi zemite za poleto sto ima isSelectedFrom
                               //vidi getSelectedFromX
                             } else {
-                              board.get(x, y)?.isSelectedFrom =
-                                !board.get(x, y)?.isSelectedFrom!!
+                              board.get(x, y).isSelectedFrom =
+                                !board.get(x, y).isSelectedFrom
                             }
 
                             onBoardUpdate(board)
