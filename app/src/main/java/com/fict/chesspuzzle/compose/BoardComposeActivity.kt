@@ -94,6 +94,15 @@ fun RefreshableBoard(initBoardModel: BoardModel = BoardModel()) {
         name = it
     }, {
         activeBoard = it
+
+        //ovde pak ja koristime bibliotekata za da setirame so noviot FEN
+        //t.e da ja inicijalizirame bibliotekata so novata sostojba na tablata
+        //taa sostojba e sodrzana vo 'it'
+
+        //board.loadFromFen("new fen")
+        //a toj new fen ke go zemite od 'it' sto e BoardModel i treba da go konvertirate vo FEN
+        //ova se tie konverzii of FEN vo BoardModel i od BoardModel vo FEN
+
     })
 }
 
