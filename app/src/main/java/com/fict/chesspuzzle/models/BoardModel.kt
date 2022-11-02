@@ -1,15 +1,13 @@
 package com.fict.chesspuzzle.models
 
 import android.R.array
-
-
-
+import com.fict.chesspuzzle.compose.BoardComposeActivity
 
 
 /**
  * Pure business logic of our model.
  */
-open class BoardModel { //8x8 = 64
+ class BoardModel: BoardComposeActivity() { //8x8 = 64
 
   // 0 1 2 3 4 5 6 7
   // 8 9 10...
@@ -23,7 +21,7 @@ open class BoardModel { //8x8 = 64
     for (y in 0..7) {
       for (x in 0..7) {
         val isLightSquare = x % 2 == y % 2
-        val s = SquareModel(x, y, "", false, false, false, isLightSquare)
+        val s = SquareModel(x, y, getInit(x,y), false, false, false, isLightSquare)
         squares.add(s)
       }
     }
@@ -112,79 +110,6 @@ open class BoardModel { //8x8 = 64
     }
     return -1 //ili exeption ili null zavisi kakva implementacija ke sakate
   }
-
-  fun isWhiteRook(x: Int, y: Int) : Boolean {
-    return get(x,y).isWhiteRook()
-  }
-
-  fun isBlackRook(x: Int, y: Int) : Boolean {
-    return get(x,y).isBlackRook()
-  }
-
-  fun isWhiteKnight(x: Int, y: Int) : Boolean {
-    return get(x,y).isWhiteKnight()
-  }
-
-  fun isBlackKnight(x: Int, y: Int) : Boolean {
-    return get(x,y).isBlackKnight()
-  }
-
-  fun isWhiteBishop(x: Int, y: Int) : Boolean {
-    return get(x,y).isWhiteBishop()
-  }
-
-  fun isBlackBishop(x: Int, y: Int) : Boolean {
-    return get(x,y).isBlackBishop()
-  }
-
-  fun isWhiteQueen(x: Int, y: Int) : Boolean {
-    return get(x,y).isWhiteQueen()
-  }
-
-  fun isBlackQueen(x: Int, y: Int) : Boolean {
-    return get(x,y).isBlackQueen()
-  }
-
-  fun isWhiteKing(x: Int, y: Int) : Boolean {
-    return get(x,y).isWhiteKing()
-  }
-
-  fun isBlackKing(x: Int, y: Int) : Boolean {
-    return get(x,y).isBlackKing()
-  }
-
-  fun isWhitePawn(x: Int, y: Int) : Boolean {
-    return get(x,y).isWhitePawn()
-  }
-  fun isBlackPawn(x: Int, y: Int) : Boolean {
-    return get(x,y).isBlackPawn()
-  }
-
-  fun isRook(x: Int, y: Int) : Boolean {
-    return get(x,y).isWhiteRook() || get(x,y).isBlackRook()
-  }
-
-  fun isKnight(x: Int, y: Int) : Boolean {
-    return get(x,y).isWhiteKnight() || get(x,y).isBlackKnight()
-  }
-
-  fun isBishop(x: Int, y: Int) : Boolean {
-    return get(x,y).isWhiteBishop() || get(x,y).isBlackBishop()
-  }
-
-  fun isQueen(x: Int, y: Int) : Boolean {
-    return get(x,y).isWhiteQueen() || get(x,y).isBlackQueen()
-  }
-
-  fun isKing(x: Int, y: Int) : Boolean {
-    return get(x,y).isWhiteKing() || get(x,y).isBlackKing()
-  }
-
-  fun isPawn(x: Int, y: Int) : Boolean {
-    return get(x,y).isWhitePawn() || get(x,y).isBlackPawn()
-  }
-
-
 
 
 

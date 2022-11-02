@@ -71,5 +71,4 @@ class SquareModel(
     return figureType.equals("p")
   }
 
-
 }
