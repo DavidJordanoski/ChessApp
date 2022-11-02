@@ -19,56 +19,19 @@ class SquareModel(
   var isLightSquare: Boolean //white/black background of the square
 ) {
 
-  fun isEmpty(): Boolean {
-    return figureType.isEmpty()
-  }
+  fun emptyField() = figureType != "."
+  fun isWhiteRook() = figureType == "R"
+  fun isBlackRook() = figureType == "r"
+  fun isWhiteKing() = figureType == "K"
+  fun isBlackKing() = figureType == "k"
+  fun isWhitePawn() = figureType == "P"
+  fun isBlackPawn() = figureType == "p"
+  fun isWhiteQueen() = figureType == "Q"
+  fun isBlackQueen() = figureType == "q"
+  fun isWhiteKnight() = figureType == "N"
+  fun isBlackKnight() = figureType == "n"
+  fun isWhiteBishop() = figureType == "B"
+  fun isBlackBishop()  = figureType == "b"
 
-  fun isWhiteRook() : Boolean {
-    return figureType.equals("R")
-  }
-
-  fun isBlackRook() : Boolean {
-    return figureType.equals("r")
-  }
-
-  fun isWhiteKnight() : Boolean {
-    return figureType.equals("N")
-  }
-
-  fun isBlackKnight() : Boolean {
-    return figureType.equals("n")
-  }
-
-  fun isWhiteBishop() : Boolean {
-    return figureType.equals("B")
-  }
-
-  fun isBlackBishop() : Boolean {
-    return figureType.equals("b")
-  }
-
-  fun isWhiteQueen() : Boolean {
-    return figureType.equals("Q")
-  }
-
-  fun isBlackQueen() : Boolean {
-    return figureType.equals("q")
-  }
-
-  fun isWhiteKing() : Boolean {
-    return figureType.equals("K")
-  }
-
-  fun isBlackKing() : Boolean {
-    return figureType.equals("k")
-  }
-
-  fun isWhitePawn() : Boolean {
-    return figureType.equals("P")
-  }
-
-  fun isBlackPawn() : Boolean {
-    return figureType.equals("p")
-  }
 
 }

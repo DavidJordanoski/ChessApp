@@ -65,7 +65,7 @@ class PuzzleListActivity : AppCompatActivity(), PuzzleListAdapter.ClickListener 
 
     puzzlesList.add(PuzzleModel("5bnr/ppp/8/8/8/8/8/6NR", "Chess Title 100"))
     puzzlesList.add(PuzzleModel("8/1p1p1p/8/8/8/8/8/8", "Chess Title 101"))
-
+    puzzlesList.add(PuzzleModel("rnbqkbnr/pp1ppppp/8/2p5/4P3/5N2/PPPP1PPP/RNBQKB1R b KQkq - 1 2","Title"))
     puzzlesList.add(PuzzleModel("1nb1kbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR", "Chess Title 1"))
     puzzlesList.add(PuzzleModel("2bqkbnr/1ppppppp/p7/8/8/8/PPPPPPPP/RNBQKBNR", "Chess Title 2"))
     puzzlesList.add(PuzzleModel("1nbqkbnr/1pppp1pp/p7/8/8/8/PPPPPPPP/RNBQKBNR", "Chess Title 3"))

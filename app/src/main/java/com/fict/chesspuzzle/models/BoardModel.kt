@@ -113,7 +113,7 @@ import com.fict.chesspuzzle.compose.BoardComposeActivity
 
 
 
-  fun getInitSquareModel() : SquareModel {
+  private fun getInitSquareModel() : SquareModel {
     return SquareModel(0,0,"",false,false,false,false)
   }
 }
