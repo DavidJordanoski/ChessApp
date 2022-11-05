@@ -15,17 +15,15 @@ import com.fict.chesspuzzle.compose.BoardComposeActivity
 
   // 0 1 2 3.......... 63
 
-  private val squares: MutableList<SquareModel> = mutableListOf() //8x8
+  private var squares: MutableList<SquareModel> = mutableListOf() //8x8
 
   init {
-    for (y in 0..7) {
-      for (x in 0..7) {
-        val isLightSquare = x % 2 == y % 2
-        val s = SquareModel(x, y, getInit(x,y), false, false, false, isLightSquare)
-        squares.add(s)
-      }
-    }
+
   }
+
+    fun setSquare(square: MutableList<SquareModel>){
+        squares = square
+    }
 
 
   //0-7 ili 1-8

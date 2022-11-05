@@ -20,6 +20,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.fict.chesspuzzle.R
 import com.fict.chesspuzzle.models.BoardModel
+import com.fict.chesspuzzle.models.SquareModel
 import com.fict.chesspuzzle.usecase.LibraryLogic
 import com.fict.myapplication.ui.theme.MyApplicationTheme
 import com.github.bhlangonijr.chesslib.File
@@ -45,26 +46,38 @@ open class BoardComposeActivity : ComponentActivity() {
             }
         }
     }
-    fun getInit(x: Int,y: Int): String {
-
-
+    fun getFenSymbol(x: Int,y: Int): String {
         val col = File.allFiles[x] //file is column, example A-File, H-File
         val row = Rank.allRanks[7-y] //rank is 1st to 8th rank
         val sq = Square.encode(row, col)
         val piece = boardLib.getPiece(sq)
-
-        //boardLib.loadFromFen("rnbqkbnr/pp1ppppp/8/2p5/4P3/5N2/PPPP1PPP/RNBQKB1R b KQkq - 1 2")
         return piece.fenSymbol
     }
 
     fun getInitBoardModel(): BoardModel {
         //get FEN from intent
+        val fen = intent.getStringExtra("fen")
+        boardLib.loadFromFen(fen)
         //use the lib to create BoardModel
-
+        val boardModel = BoardModel()
+        val squares: MutableList<SquareModel> = mutableListOf()
         //for y 0 - 7
         //for x 0-7
+        for (y in 0..7) {
+            for (x in 0..7) {
+                val isLightSquare = x % 2 == y % 2
+                val s = SquareModel(x, y, getFenSymbol(x,y),
+                    isSelectedFrom = false,
+                    isSelectedTo = false,
+                    isValidMove = false,
+                    isLightSquare = isLightSquare
+                )
+                squares.add(s)
+            }
+        }
         //get proper peace and add it to the init model
-        return BoardModel()
+        boardModel.setSquare(squares)
+        return boardModel
     }
 }
 
@@ -158,6 +171,8 @@ fun Board(
                                 } else if (board.get(x,y).emptyField()) {
                                     board.get(x, y).isSelectedFrom = !board.get(x, y).isSelectedFrom
                                 }
+
+
 
                                 onBoardUpdate(board)
                                 onNameChange("" + Date().time) //ugly hack
