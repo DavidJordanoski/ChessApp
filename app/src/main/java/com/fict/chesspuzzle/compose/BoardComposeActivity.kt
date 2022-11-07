@@ -1,6 +1,5 @@
 package com.fict.chesspuzzle.compose
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -21,18 +20,17 @@ import androidx.compose.ui.unit.dp
 import com.fict.chesspuzzle.R
 import com.fict.chesspuzzle.models.BoardModel
 import com.fict.chesspuzzle.models.SquareModel
-import com.fict.chesspuzzle.usecase.LibraryLogic
 import com.fict.myapplication.ui.theme.MyApplicationTheme
 import com.github.bhlangonijr.chesslib.File
+import com.github.bhlangonijr.chesslib.Piece
 import com.github.bhlangonijr.chesslib.Rank
 import com.github.bhlangonijr.chesslib.Square
-import java.lang.StringBuilder
 import java.util.*
 
 //there should be no rules in this class
 //only draw what is available in board model
 open class BoardComposeActivity : ComponentActivity() {
-    val boardLib = com.github.bhlangonijr.chesslib.Board()
+    private val boardLib = com.github.bhlangonijr.chesslib.Board()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -46,15 +44,16 @@ open class BoardComposeActivity : ComponentActivity() {
             }
         }
     }
-    fun getFenSymbol(x: Int,y: Int): String {
+
+    private fun getFenSymbol(x: Int, y: Int): String {
         val col = File.allFiles[x] //file is column, example A-File, H-File
-        val row = Rank.allRanks[7-y] //rank is 1st to 8th rank
+        val row = Rank.allRanks[7 - y] //rank is 1st to 8th rank
         val sq = Square.encode(row, col)
         val piece = boardLib.getPiece(sq)
         return piece.fenSymbol
     }
 
-    fun getInitBoardModel(): BoardModel {
+    private fun getInitBoardModel(): BoardModel {
         //get FEN from intent
         val fen = intent.getStringExtra("fen")
         boardLib.loadFromFen(fen)
@@ -130,78 +129,73 @@ fun Board(
                     for (x in 0..7) { //board.isLightSquare
 
                         //should be part of board-state
-                        //var selected by remember { mutableStateOf(false) }
-
+                        var selectedFrom by remember { mutableStateOf(false) }
+                        var selectedTo by remember { mutableStateOf(false) }
+                        selectedFrom = board.get(x, y).isSelectedFrom
+                        selectedTo = board.get(x, y).isSelectedTo
                         //one square item
-                        Box(modifier = Modifier
-                            .weight(1f)
-                            .aspectRatio(1f)
-                            .border(
-                                BorderStroke(
-                                    width = 2.dp, color = getSelectionSquareColor(board, x, y)
+                        Box(
+                            modifier = Modifier
+                                .weight(1f)
+                                .aspectRatio(1f)
+                                .border(
+                                    BorderStroke(
+                                        width = 2.dp,
+                                        color = getSelectionSquareColor(selectedFrom, selectedTo)
+
+                                    )
                                 )
-                            )
-                            .background(
-                                getBackgroundSquareColor(
-                                    board.get(
-                                        x,
-                                        y
-                                    ).isLightSquare
+                                .background(
+                                    getBackgroundSquareColor(
+                                        board.get(
+                                            x,
+                                            y
+                                        ).isLightSquare
+                                    )
                                 )
-                            )
-                            .clickable { //selected = !selected //board.set(i,j - x,y) = selected
-                                //board.setSelectedField(x,y)
-                                //treba da se napraj pak trigger za valid fields preku usecase
-
-                                if (board.isSomeFieldSelectedAsTo()) {
-                                    board.deselectAll()
-                                }
-
-                                if (board.isSomeFieldSelectedAsFrom()) { //znaci odredeno pole e selektirano, sega treba da se napravi destination
-                                    //toa sto e selectirano e from, ova novoto e destination
-                                    board.get(x, y).isSelectedTo = !board.get(x, y).isSelectedTo
-
-                                    //ovde e mrdanjeto na figurata
-                                    //tuka treba da se napravi
-                                    //prefrluvanje na vrednosta na board.get(fromX, fromY).figureType
-
-                                    //vo board(toX, toY), sto prakticno ke bidat x i y (za to)
-                                    //no za fromX, fromY treba da gi zemite za poleto sto ima isSelectedFrom
-                                    //vidi getSelectedFromX
-                                } else if (board.get(x,y).emptyField()) {
-                                    board.get(x, y).isSelectedFrom = !board.get(x, y).isSelectedFrom
-                                }
+                                .clickable { //selected = !selected //board.set(i,j - x,y) = selected
+                                    //board.setSelectedField(x,y)
+                                    //treba da se napraj pak trigger za valid fields preku usecase
 
 
+                                    if (board.isSomeFieldSelectedAsTo()) {
+                                        board.deselectAll()
+                                    }
 
-                                onBoardUpdate(board)
-                                onNameChange("" + Date().time) //ugly hack
-                            }) {
+                                    if (board.isSomeFieldSelectedAsFrom()) { //znaci odredeno pole e selektirano, sega treba da se napravi destination
+                                        //toa sto e selectirano e from, ova novoto e destination
+                                        board.get(x, y).isSelectedTo = !board.get(x, y).isSelectedTo
+                                        selectedTo = !selectedTo
+
+                                        //ovde e mrdanjeto na figurata
+                                        //tuka treba da se napravi
+                                        //prefrluvanje na vrednosta na board.get(fromX, fromY).figureType
+
+                                        //vo board(toX, toY), sto prakticno ke bidat x i y (za to)
+                                        //no za fromX, fromY treba da gi zemite za poleto sto ima isSelectedFrom
+                                        //vidi getSelectedFromX
+                                    } else if (board.get(x, y).emptyField()) {
+                                        board.get(x, y).isSelectedFrom = !board.get(x, y).isSelectedFrom
+                                        selectedFrom = !selectedFrom
+                                    }
+
+
+                                }) {
                             Text(text = "${x},${y}")
-
                             drawPieces(board = board, x = x, y = y)
-
                         }
                     }
                 }
-            } //ugly hack for refresh
-            Column(modifier = Modifier.alpha(0f)) {
-                OutlinedTextField(
-                    value = "name",
-                    onValueChange = onNameChange,
-                    label = { Text("Name") })
             }
         }
     }
 }
 
-fun getSelectionSquareColor(board: BoardModel, x: Int, y: Int): Color {
-    if (board.get(x, y).isSelectedFrom) {
+fun getSelectionSquareColor(selectedFrom: Boolean, selectedTo: Boolean): Color {
+    if (selectedFrom) {
         return Color.Red
-    } else {
-        if (board.get(x, y).isSelectedTo) {
-            return Color.Green
-        }
+    } else if (selectedTo) {
+        return Color.Green
     }
     return Color.Transparent
 }

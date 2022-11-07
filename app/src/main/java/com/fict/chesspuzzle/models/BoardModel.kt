@@ -1,7 +1,9 @@
 package com.fict.chesspuzzle.models
 
 import android.R.array
+import androidx.compose.ui.graphics.Color
 import com.fict.chesspuzzle.compose.BoardComposeActivity
+import com.github.bhlangonijr.chesslib.Board
 
 
 /**
@@ -60,14 +62,8 @@ import com.fict.chesspuzzle.compose.BoardComposeActivity
     return getInitSquareModel()
   }
 
-
-
   private fun checkForIndexOutOfBounds(index: Int): Boolean{
     return (index >= 0 && index < squares.size)
-  }
-
-  fun add(squareModel: SquareModel) {
-    squares.add(squareModel)
   }
 
   //todo give better naming to the methods below
@@ -108,8 +104,6 @@ import com.fict.chesspuzzle.compose.BoardComposeActivity
     }
     return -1 //ili exeption ili null zavisi kakva implementacija ke sakate
   }
-
-
 
   private fun getInitSquareModel() : SquareModel {
     return SquareModel(0,0,"",false,false,false,false)
